@@ -1,0 +1,66 @@
+.line {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(72, 153, 193);
+    margin-bottom: 30px;
+}
+
+.container {
+    white-space: nowrap;
+}
+
+.loginForm,
+.qrCodeForm {
+    display: inline-block;
+    width: 50%;
+}
+
+.loginForm {
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+}
+
+.qrCodeForm {
+    text-align: center;
+    background-color: blue;
+}
+
+.imageQrCode{
+    height: 100px;
+    width: 100px;
+}
+
+body{
+    background-color: #11131a;
+    color: darkgray;
+ }
+
+.logoImg{
+    height: 120px;
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(72, 153, 193);
+}
+
+.loginForm label,
+.loginForm input {
+  display: block;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.bottomPanel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    background-color: #191b20;
+    color: darkgrey;
+    text-align: center;
+    padding: 10px;
+}
