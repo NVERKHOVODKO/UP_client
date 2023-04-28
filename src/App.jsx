@@ -65,20 +65,39 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import authorization from './components/screens/authorization/Authorization.Module.jsx';
-//import userMainMenu from './components/screens/userMainMenu/UserMainMenu.Module.jsx';
+import userMainMenu from './components/screens/userMainMenu/UserMainMenu.Module.jsx';
 //import userMainMenu from './CoinsData.js';
 
 
 class App extends Component {
   render() {
     return (
-        <Router>
-          <Switch>
-            <Route path='/' exact={true} component={authorization}/>
-          </Switch>
-        </Router>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={authorization} />
+          <Route path="/menu" component={userMainMenu} />          
+        </Switch>
+      </Router>
     )
   }
 }
 
 export default App;
+/* 
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Login from './Login';
+import Menu from './Menu';
+
+function App() {
+  return (
+    <div>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route path="/menu" component={Menu} />
+      </Switch>
+    </div>
+  );
+}
+
+export default App; */

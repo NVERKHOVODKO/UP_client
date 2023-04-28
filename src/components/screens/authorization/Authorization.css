@@ -18,25 +18,25 @@
 .loginForm {
     justify-content: center;
     align-items: center;
-    background-color: red;
 }
 
 .qrCodeForm {
     text-align: center;
-    background-color: blue;
+    /*     background-color: blue;
+ */
 }
 
-.imageQrCode{
-    height: 100px;
-    width: 100px;
+
+.qrCodeForm {
+    margin-left: -100px;
 }
 
-body{
+body {
     background-color: #11131a;
     color: darkgray;
- }
+}
 
-.logoImg{
+.logoImg {
     height: 120px;
     padding: 10px;
 }
@@ -48,9 +48,9 @@ a {
 
 .loginForm label,
 .loginForm input {
-  display: block;
-  margin-bottom: 10px;
-  width: 200px;
+    display: block;
+    margin-bottom: 10px;
+    width: 200px;
 }
 
 .bottomPanel {
@@ -62,5 +62,62 @@ a {
     background-color: #191b20;
     color: darkgrey;
     text-align: center;
+    padding: 10px;
+}
+
+.loginForm {
+    text-align: "center";
+}
+
+.errorText {
+    color: red !important;
+}
+
+button {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #191b20;
+    color: rgb(72, 153, 193);
+}
+
+.MenuCase {}
+
+.coinList {
+    overflow-y: scroll;
+    height: 100%;
+}
+
+
+.navBar {
+    display: flex;
+    /* Устанавливаем контейнеру режим flex */
+    flex-direction: column;
+    /* Устанавливаем направление элементов в столбец */
+}
+
+.MenuIcon {
+    height: 30px;
+    margin: 10px;
+}
+
+.upIcon{
+    height: 50px;
+    margin: 10px;
+}
+
+.balanceLbl{
+    font-size: 20px;
+}
+
+
+.MenuCaseText{
     padding: 10px;
 }

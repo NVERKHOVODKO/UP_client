@@ -1,53 +1,58 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
 }
 
-.navBar{
-    background-color: #212739;
-    text-align: center;
-    float: left;
-    width: 250px;
+.navBar {
+  background-color: #212739;
+  text-align: center;
+  float: left;
+  width: 250px;
 }
 
-.coinList{
-    background-color: #11131a;
-    width: 1300px;
-    height: 745px;
+.coinList {
+  background-color: #11131a;
+  width: 1300px;
+  height: 745px;
 }
 
-.loginLbl{
-    color: darkgray;
+.loginLbl {
+  color: darkgray;
 }
 
-.tableCoins{
-    width: 100%;
-    text-align: left;
-    color: darkgray;
+.tableCoins {
+  width: 100%;
+  text-align: left;
+  color: darkgray;
+}
+
+.coinIcon {
+  width: 100px;
+  height: 100px;
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 14px;
-    text-align: center;
-  }
-  
-  th,
-  td {
-    padding: 12px;
-  }
-  
-  th {
-    font-weight: bold;
-    background-color: #11131a;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #1c1e27;
-  }
-  
-  .balanceLbl{
-    color: darkGray;
-  }
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  text-align: center;
+}
+
+th,
+td {
+  padding: 12px;
+}
+
+th {
+  font-weight: bold;
+  background-color: #11131a;
+}
+
+tr:nth-child(even) {
+  background-color: #1c1e27;
+}
+
+.balanceLbl {
+  color: darkGray;
+}
