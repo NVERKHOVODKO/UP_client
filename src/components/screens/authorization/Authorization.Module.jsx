@@ -246,7 +246,7 @@ function LoginPage() {
             roleId: user.roleId,
             salt: user.salt,
           };
-          history.push('/menu', userParams);
+          history.push('/buyCrypto', userParams);
         }
         // Обработка успешного ответа от сервера
       })

@@ -1,0 +1,78 @@
+.buingPanel {
+    background-color: #11131a;;
+    width: 1300px;
+    height: 745px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navBar {
+    background-color: #212739;
+    text-align: center;
+    float: left;
+    width: 250px;
+}
+
+.panel {
+    background-color: #11131a;;
+    height: 500px;
+    width: 500px;
+}
+
+.buttonBuy:hover {
+    background-color: #212739;
+    color: rgb(72, 153, 193);
+}
+
+
+.buttonBuy{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    font-size: 24px;
+}
+
+.mainLbl{
+    text-align: center;
+}
+
+.sumPanel{
+    background-color: #191b23;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    height: 100px;
+}
+
+.coinPanel{
+    background-color: #191b23;
+    border-radius: 10px;
+    padding: 20px;
+    height: 100px;
+}
+
+.usdtIcon{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 10px;
+}
+
+.ratePanel{
+    height: 50px;
+}
+
+input{
+    background-color: #191b23;
+    color: darkgray;
+    border:none;
+    font-size: 20px;
+}

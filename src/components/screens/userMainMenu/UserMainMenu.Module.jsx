@@ -534,14 +534,14 @@ function App(props) {
           <table className="tableCoins">
           <thead>
             <tr className='tableHead'>
-              <th>Icon</th>
-              <th>Full name</th>
-              <th>Short name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Daily volume</th>
-              <th>Daily impact</th>
-              <th>Percentage change</th>
+              <th>Монета</th>
+              <th>Полн. назв.</th>
+              <th>Сокр.</th>
+              <th>Цена</th>
+              <th>Кол-во</th>
+              <th>Дневн. объем</th>
+              <th>Изм. цены</th>
+              <th>Проц. изм.</th>
             </tr>
           </thead>
           <tbody>

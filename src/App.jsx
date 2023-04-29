@@ -78,7 +78,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={authorization} />
           <Route path="/menu" component={userMainMenu} />  
-          {/* <Route path="/buyCrypto" component={buyCryptoMenu} /> */}
+          <Route path="/buyCrypto" component={buyCryptoMenu} />
         </Switch>
       </Router>
     )
@@ -86,21 +86,3 @@ class App extends Component {
 }
 
 export default App;
-/* 
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Login from './Login';
-import Menu from './Menu';
-
-function App() {
-  return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/menu" component={Menu} />
-      </Switch>
-    </div>
-  );
-}
-
-export default App; */
