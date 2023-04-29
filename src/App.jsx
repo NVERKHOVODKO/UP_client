@@ -66,6 +66,8 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import authorization from './components/screens/authorization/Authorization.Module.jsx';
 import userMainMenu from './components/screens/userMainMenu/UserMainMenu.Module.jsx';
+import buyCryptoMenu from './components/screens/buyCrypto/BuyCrypto.jsx';
+
 //import userMainMenu from './CoinsData.js';
 
 
@@ -75,7 +77,8 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={authorization} />
-          <Route path="/menu" component={userMainMenu} />          
+          <Route path="/menu" component={userMainMenu} />  
+          {/* <Route path="/buyCrypto" component={buyCryptoMenu} /> */}
         </Switch>
       </Router>
     )

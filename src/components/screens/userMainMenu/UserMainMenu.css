@@ -19,6 +19,8 @@
 
 .loginLbl {
   color: darkgray;
+  margin-bottom: -30px;
+  margin-top: -20px;
 }
 
 .tableCoins {
@@ -28,8 +30,8 @@
 }
 
 .coinIcon {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 
 table {
@@ -56,3 +58,62 @@ tr:nth-child(even) {
 .balanceLbl {
   color: darkGray;
 }
+
+.MenuCaseItem {
+  text-align: left;
+  font-size: 18px;
+}
+
+.MenuIcon {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.MenuCaseItem .MenuIcon {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.buttonMaskBalance {
+  height: 30px;
+  width: 80px;
+  color: #1c1e27;
+}
+
+.tableHead {
+  font-size: 16px;
+}
+
+.tableCoins {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tableCoins thead tr {
+  position: sticky;
+  top: 0;
+}
+
+/* Применяем стили для скроллбара веб-кита */
+::-webkit-scrollbar {
+  width: 10px;
+  /* Ширина скроллбара */
+  background-color: #1c1e27;
+  /* Цвет фона */
+}
+
+/* Стили для полосы прокрутки */
+::-webkit-scrollbar-thumb {
+  background-color: #212739;
+  /* Цвет полосы */
+  border-radius: 10px;
+  /* Закругление углов полосы */
+}
+
+/* Стили для полосы прокрутки при наведении курсора на нее */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #212739;
+  /* Изменяем цвет полосы при наведении */
+}
+

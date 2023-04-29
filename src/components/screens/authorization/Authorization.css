@@ -73,19 +73,8 @@ a {
     color: red !important;
 }
 
-button {
-    height: 40px;
-    width: 150px;
-    border: none;
-    background-color: rgb(72, 153, 193);
-    color: black;
-    font-size: 20px;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #191b20;
-    color: rgb(72, 153, 193);
+img {
+    vertical-align: bottom;
 }
 
 .MenuCase {}
@@ -108,16 +97,53 @@ button:hover {
     margin: 10px;
 }
 
-.upIcon{
+.upIcon {
     height: 50px;
     margin: 10px;
 }
 
-.balanceLbl{
+.balanceLbl {
     font-size: 20px;
 }
 
 
-.MenuCaseText{
+.MenuCaseText {
     padding: 10px;
+}
+
+
+.inputField {
+    background-color: rgb(72, 153, 193);
+    border: none;
+    padding: 10px;
+    color: #191b20;
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+    font-size: 20px;
+}
+
+.loginDataPlace{
+    padding: 50px;
+    padding-left: 400px;
+}
+
+.buttonLogin:hover {
+    background-color: #191b20;
+    color: rgb(72, 153, 193);
+}
+
+
+.buttonLogin{
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+h4{
+    margin: 0px;
 }
