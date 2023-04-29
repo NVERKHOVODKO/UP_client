@@ -1,5 +1,6 @@
 .buingPanel {
-    background-color: #11131a;;
+    background-color: #11131a;
+    ;
     width: 1300px;
     height: 745px;
     display: flex;
@@ -15,9 +16,11 @@
 }
 
 .panel {
-    background-color: #11131a;;
+    background-color: #11131a;
+    ;
     height: 500px;
     width: 500px;
+    padding-bottom: 120px;
 }
 
 .buttonBuy:hover {
@@ -26,7 +29,7 @@
 }
 
 
-.buttonBuy{
+.buttonBuy {
     width: 100%;
     height: 50px;
     border-radius: 10px;
@@ -35,44 +38,67 @@
     font-size: 24px;
 }
 
-.mainLbl{
+.mainLbl {
     text-align: center;
 }
 
-.sumPanel{
+.sumPanel {
     background-color: #191b23;
     border-radius: 10px;
     padding: 20px;
     position: relative;
-    height: 100px;
+    height: 80px;
 }
 
-.coinPanel{
+.coinPanel {
     background-color: #191b23;
     border-radius: 10px;
     padding: 20px;
-    height: 100px;
+    height: 80px;
 }
 
-.usdtIcon{
+.usdtIcon {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     padding: 10px;
 }
 
-.ratePanel{
+.ratePanel {
     height: 50px;
 }
 
-input{
+input {
     background-color: #191b23;
     color: darkgray;
-    border:none;
+    border: none;
     font-size: 20px;
+}
+
+.selectInput {
+    overflow: scroll;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 10px;
+    width: 200px;
+    height: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+}
+
+.selectInput:hover,
+select:focus {
+    border-color: rgb(72, 153, 193);
+}
+
+.selectInput option {
+    font-size: 16px;
 }
