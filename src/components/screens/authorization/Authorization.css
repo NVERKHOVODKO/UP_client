@@ -137,7 +137,7 @@ img {
 
 .buttonLogin{
     height: 40px;
-    width: 150px;
+    width: 100%;
     border: none;
     background-color: rgb(72, 153, 193);
     color: black;

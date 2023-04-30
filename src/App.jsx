@@ -60,15 +60,16 @@ class App extends Component {
 }
 export default App; */
 
-//ADAM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import authorization from './components/screens/authorization/Authorization.Module.jsx';
 import userMainMenu from './components/screens/userMainMenu/UserMainMenu.Module.jsx';
 import buyCryptoMenu from './components/screens/buyCrypto/BuyCrypto.jsx';
-
-//import userMainMenu from './CoinsData.js';
+import convertCryptoMenu from './components/screens/convertion/ConvertCrypto';
+import sendCryptoMenu from './components/screens/sendCrypto/SendCrypto.jsx';
+import historyMenu from './components/screens/history/History.jsx';
 
 
 class App extends Component {
@@ -79,6 +80,9 @@ class App extends Component {
           <Route exact path="/" component={authorization} />
           <Route path="/menu" component={userMainMenu} />  
           <Route path="/buyCrypto" component={buyCryptoMenu} />
+          <Route path="/convertCrypto" component={convertCryptoMenu} />
+          <Route path="/sendCrypto" component={sendCryptoMenu} />
+          <Route path="/historyMenu" component={historyMenu} />
         </Switch>
       </Router>
     )

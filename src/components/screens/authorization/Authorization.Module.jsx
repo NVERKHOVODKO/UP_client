@@ -222,7 +222,6 @@ import { useHistory } from 'react-router-dom';
 function LoginPage() {
   const [password, setPassword] = useState('');
   const [errorMessage, setText] = useState('');
-
   const [login, setUsername] = useState('');
   const history = useHistory();
 
@@ -246,7 +245,7 @@ function LoginPage() {
             roleId: user.roleId,
             salt: user.salt,
           };
-          history.push('/buyCrypto', userParams);
+          history.push('/convertCrypto', userParams);
         }
         // Обработка успешного ответа от сервера
       })

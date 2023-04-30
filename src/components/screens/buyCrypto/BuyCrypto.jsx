@@ -1,60 +1,59 @@
-/* import React from "react";
-import './BuyCrypto.css';
-
-
-function UserMainMenu() {
-    return (
-        <div className="container">
-            <div className="navBar">
-                bar
-            </div>
-            <div className="buingPanel">
-                <div className="panel">
-                    
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default UserMainMenu */
-
-
-
 import './BuyCrypto.css';
 import usdtIcon from '../../../assets/images/cryptoicons_png/64/usdt.png';
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
-function BuyCryptoForm() {
+function BuyCryptoForm(props) {
+    const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
     const [errorMessage, setText] = useState('-----');
 
-    // обработчик отправки формы
     const handleSubmit = (event) => {
         event.preventDefault();
-        //fetchCoinQuantity();
-        // отправляем данные на сервер или обрабатываем их здесь
+        fetchCoinQuantity1();
     };
 
     const [quantityCoin, setCoinQuantity] = useState();
 
-    const fetchCoinQuantity = () => {
-        console.log(coinName);
-        console.log(quantity);
 
-        axios.get("https://localhost:7157/Transaction/getCoinQuantity?coinName=" + coinName + "&quantityUSD=" + quantity)
-            .then(response => {
+    useEffect(() => {
+        const fetchCoinQuantity = () => {
+            axios
+                .get(
+                    "https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" +
+                    id +
+                    "&coinName=usdt" +
+                    "&quantityUSD="
+                )
+                .then((response) => {
+                    setCoinQuantity(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+        fetchCoinQuantity();
+    }, []);
+
+
+    const fetchCoinQuantity1 = () => {
+        axios
+            .get(
+                "https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" +
+                id +
+                "&coinName=usdt" +
+                "&quantityUSD="
+            )
+            .then((response) => {
                 setCoinQuantity(response.data);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
             });
-    }
-
-
-    //setText('400: There is no such user');
+    };
 
 
     const coins = [
@@ -97,15 +96,17 @@ function BuyCryptoForm() {
     importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
 
     const [quantity, setQuantity] = useState();
-    const [userId, setUserId] = useState('1');
+    const [userId, setUserId] = useState(id);
     const [coinName, setCoinName] = useState('btc');
+    const [selectedCoin, setSelectedCoin] = useState('btc');
 
     const handleTokenChange = (event) => {
-        const selectedCoin = coins.find((coin) => coin.value === event.target.value);
+        const selectedCoin = coins.find((coin) => coin.value === event.target.value.toLowerCase());
         if (selectedCoin) {
+            console.log(quantityCoin);
             setCoinName(selectedCoin.value.toLowerCase());
+            setSelectedCoin(event.target.value);
         }
-        fetchCoinQuantity();
     }
 
     function handleBuy(event) {
@@ -116,6 +117,7 @@ function BuyCryptoForm() {
                 if (response.status === 200) {
                     setText('Транзакция совершена успешно');
                 }
+                fetchCoinQuantity1();
             })
             .catch(error => {
                 if (error.response && error.response.status === 400) {
@@ -129,31 +131,89 @@ function BuyCryptoForm() {
                 }
                 console.log(error);
             });
+        fetchCoinQuantity1();
     }
 
     const handleQuantityChange = (event) => {
         setQuantity(event.target.value)
-        fetchCoinQuantity();
     }
+
+
+    const [isMasked, setIsMasked] = useState(false);
+
+    const handleMaskBalance = () => {
+        setIsMasked(!isMasked);
+    };
+
+    const maskedBalance = "*********";
+    const [balanceData, setBalanceData] = useState(null);
+    const [data, setData] = useState(null);
+
+
+    const [quantityFinalCoin, setCoinFinalQuantity] = useState();
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/Currency/getUserBalance?userId=" + id)
+            .then(response => {
+                console.log(data);
+                setBalanceData(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/Transaction/getCoinQuantity?coinName=btc&quantityUSD=" + quantity)
+            .then(response => {
+                console.log(data);
+                setCoinFinalQuantity(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios
+          .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${selectedCoin}&quantityUSD=${quantity}`)
+          .then((response) => {
+            setCoinFinalQuantity(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }, [selectedCoin]);
+
 
     return (
         <div className="container">
             <div className="navBar">
                 <img className="upIcon" src={mainIcon} alt="UP icon"></img>
-                <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#">
-                        <img className="MenuIcon" src={menuIcoins['./wallet.png']} alt="Wallet icon">
-                        </img>
-                        Кошелек
-                    </a>
+                <div className="loginLbl">
+                    <h2>{login}</h2>
+                </div>
+                <div className="balanceLbl">
+                    {balanceData ? (
+                        <div>
+                            <p>{isMasked ? maskedBalance : balanceData.toFixed(3) + "$"}</p>
+                            <button onClick={handleMaskBalance}>
+                                {isMasked ? "Показать" : "Скрыть"}
+                            </button>
+                        </div>
+                    ) : (
+                        <p>Loading...</p>
+                    )}
                 </div>
                 <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./two-arrows.png']} alt="Exchange icon"></img>
-                        Конвертировать
-                    </a>
+                    <Link className="MenuCase" to={{ pathname: '/menu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Кошелек</Link>
+
                 </div>
                 <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</a>
+                    <Link className="MenuCase" to={{ pathname: '/convertCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./two-arrows.png']} alt="Exchange icon"></img>Конвертировать</Link>
+                </div>
+                <div className="MenuCaseItem">
+                    <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
                 </div>
                 <div className="MenuCaseItem">
                     <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./stake.png']} alt="History icon"></img>
@@ -172,12 +232,11 @@ function BuyCryptoForm() {
                         Поддержка</a>
                 </div>
                 <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./money.png']} alt="Send icon"></img>
-                        Отправить</a>
+                    <Link className="MenuCase" to={{ pathname: '/sendCrypto', state: props.location.state }}> <img className="MenuIcon" src={menuIcoins['./money.png']} alt="Send icon"></img>Отправить</Link>
                 </div>
                 <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#" target="_self"> <img className="MenuIcon" src={menuIcoins['./power-off.png']}
-                        alt="Exit icon"></img>Выход</a>
+                    <Link className="MenuCase" to={{ pathname: '/', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./power-off.png']}
+                        alt="Exit icon"></img>Выход</Link>
                 </div>
             </div>
             <div className="buingPanel">
@@ -194,6 +253,7 @@ function BuyCryptoForm() {
                                     <br />
                                     <br />
                                     <input type="text" placeholder="Введите сумму" onChange={handleQuantityChange} />
+                                    <h4>max: {quantityCoin ? quantityCoin.toFixed(5) : 0} USDT</h4>
                                     <img className='usdtIcon' src={usdtIcon} alt="usdt" />
                                 </label>
                             </div>
@@ -214,7 +274,7 @@ function BuyCryptoForm() {
                             </div>
                             <div className='ratePanel'>
                                 <br />
-                                Вы получите ~ {quantityCoin} {coinName}
+                                Вы получите ~ {quantityFinalCoin} {coinName}
                             </div>
                             <h3 className="errorText">{errorMessage}</h3>
                             <br />

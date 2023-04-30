@@ -42,15 +42,15 @@
     text-align: center;
 }
 
-.sumPanel {
+.firstCoinPanel {
     background-color: #191b23;
     border-radius: 10px;
     padding: 20px;
     position: relative;
-    height: 100px;
+    height: 140px;
 }
 
-.coinPanel {
+.secondCoinPanel {
     background-color: #191b23;
     border-radius: 10px;
     padding: 20px;
