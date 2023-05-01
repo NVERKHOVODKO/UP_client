@@ -137,14 +137,35 @@ img {
 
 .buttonLogin{
     height: 40px;
-    width: 100%;
     border: none;
     background-color: rgb(72, 153, 193);
     color: black;
     font-size: 20px;
     border-radius: 5px;
+    width: 356px !important;
+    margin-left: 10px;
 }
 
 h4{
     margin: 0px;
+}
+
+.createNewAccountLbl{
+    margin-left: 12px;
+}
+
+.inputField2{
+    margin: 10px;
+    background-color: #11131a;
+    border: 2px solid rgb(72, 153, 193);
+    border-radius: 10px;
+    font-size: 30px;
+    height: 50px;
+    width: 350px !important;
+}
+
+.inputField2:hover,
+.inputField2:focus
+{
+    border: 2px solid rgb(255, 247, 0) !important;
 }
