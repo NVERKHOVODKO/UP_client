@@ -9,7 +9,7 @@ function AuthorizationPage() {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [login, setLogin] = useState('');
   const [errorMessage, setText] = useState('');
-  
+
   function handleCreateNew(event) {
     event.preventDefault();
     console.log("Login: " + login + "\nPassword: " + password + "\nPasswordRep: " + passwordRepeat);
@@ -17,7 +17,7 @@ function AuthorizationPage() {
     axios.post('https://localhost:7157/Authorization/register', { login, password, passwordRepeat })
       .then(response => {
         if (response.status === 200) {
-          setText('200: success');
+          setText(response.data);
           const user = response.data;
           const userParams = {
             id: user.id,
@@ -35,31 +35,31 @@ function AuthorizationPage() {
         // Обработка успешного ответа от сервера
       })
       .catch(error => {
-        if (error.response && error.response.status === 400) {
-          setText('400: There is no such user');
-        }
-        else if (error.response && error.response.status === 404) {
-          setText('404: There is no such user');
-        }
-        else {
-          setText('An unknown error occurred');
-        }
-        // Обработка ошибки
-        console.log(error);
+        console.error(error.response.data);
+        setText(error.response.data);
       });
   }
 
+
+
   return (
-
-
-  
     <div className='container1'>
       <h1>Регистрация</h1>
       <div className='regForm'>
-        <input className='inputField1' type="text" value={login} onChange={(event) => setLogin(event.target.value)} placeholder="Введите логин"/>
-        <input className='inputField1' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Введите пароль"/>
-        <input className='inputField1' type="password" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} placeholder="Повторите пароль"/>
-        <button className='buttonLogin'onClick={handleCreateNew}>Создать аккаунт</button>
+        <input className='inputField1' type="text" value={login} onChange={(event) => setLogin(event.target.value)} placeholder="Введите логин" />
+        <input className='inputField1' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Введите пароль" />
+        <input className='inputField1' type="password" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} placeholder="Повторите пароль" />
+        <h3 className="errorText">{errorMessage}</h3>
+        <label>
+      <input
+        type="radio"
+        value={value}
+        checked={checked}
+        onChange={onChange}
+      />
+      {label}
+    </label>
+        <button className='buttonLogin' onClick={handleCreateNew}>Создать аккаунт</button>
         <Link to={{ pathname: '/', }}>У меня уже есть аккаунт</Link>
       </div>
     </div>

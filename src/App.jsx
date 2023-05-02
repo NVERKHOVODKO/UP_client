@@ -14,6 +14,12 @@ import loginHistoryTable from './components/loginHistoryTable/LoginHistoryTable.
 import replenishTheBalance from './components/replenishTheBalance/ReplenishTheBalance.jsx';
 import withdrawMoney from './components/withdrawMoney/WithdrawMoney.jsx';
 import editUserMyself from './components/editUserMyself/EditUserMyself.jsx';
+import conversionHistory from './components/conversions/Conversions.jsx';
+import depositHistory from './components/depositHistory/DepositHistory.jsx';
+import withdrawHistory from './components/withdrawHistory/WithdrawHistory.jsx';
+import transactionsHistory from './components/transactionsHistory/TransactionsHistory.jsx';
+
+
 
 
 class App extends Component {
@@ -34,6 +40,10 @@ class App extends Component {
           <Route path="/replenishTheBalance" component={replenishTheBalance} />
           <Route path="/withdrawMoney" component={withdrawMoney} />
           <Route path="/editUserMyself" component={editUserMyself} />
+          <Route path="/conversionHistory" component={conversionHistory} />
+          <Route path="/depositHistory" component={depositHistory} />
+          <Route path="/withdrawHistory" component={withdrawHistory} />
+          <Route path="/transactionsHistory" component={transactionsHistory} />
         </Switch>
       </Router>
     )

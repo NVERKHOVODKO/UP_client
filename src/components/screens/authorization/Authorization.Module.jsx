@@ -16,11 +16,10 @@ function LoginPage() {
 
   function handleLogin(event) {
     event.preventDefault();
-    // Отправляем запрос на сервер с логином и паролем
     axios.post('https://localhost:7157/Authorization', { login, password })
       .then(response => {
         if (response.status === 200) {
-          setText('200: success');
+          setText(response.data);
           const user = response.data;
           const userParams = {
             id: user.id,
@@ -38,17 +37,8 @@ function LoginPage() {
         }
       })
       .catch(error => {
-        if (error.response && error.response.status === 400) {
-          setText('400: There is no such user');
-        }
-        else if (error.response && error.response.status === 404) {
-          setText('404: There is no such user');
-        }
-        else {
-          setText('An unknown error occurred');
-        }
-        // Обработка ошибки
-        console.log(error);
+        console.error(error.response.data);
+        setText(error.response.data);
       });
   }
 

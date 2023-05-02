@@ -1,4 +1,4 @@
-import './History.css';
+import styles from'./History.css';
 import usdtIcon from '../../../assets/images/cryptoicons_png/64/usdt.png';
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
 import axios from 'axios';
@@ -6,10 +6,17 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import NavBar from '../../navBar/NavBar.jsx';
+import ConversionHistory from '../../conversions/Conversions';
+import DepositHistory from '../../depositHistory/DepositHistory';
+import WithdrawHistory from '../../withdrawHistory/WithdrawHistory';
+import TransactionsHistory from '../../transactionsHistory/TransactionsHistory';
 
 
 
-function BuyCryptoForm(props) {
+
+
+
+function History(props) {
     const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
     const [errorMessage, setText] = useState('-----');
     const handleSubmit = (event) => {
@@ -17,13 +24,6 @@ function BuyCryptoForm(props) {
     };
 
     const [quantityCoin, setCoinQuantity] = useState();
-
-
-    const menuIcoins = {};
-    function importAllMenuIcons(r) {
-        r.keys().forEach((key) => (menuIcoins[key] = r(key)));
-    }
-    importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
 
     const [receiverId, setRecieverId] = useState(id);
     const [senderId] = useState(id);
@@ -61,9 +61,23 @@ function BuyCryptoForm(props) {
         setIsMasked(!isMasked);
     };
 
+
+
     const maskedBalance = "*********";
     const [balanceData, setBalanceData] = useState(null);
     const [data, setData] = useState(null);
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/Transaction/getUserConversationsHistory?id=" + id)
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+
 
     useEffect(() => {
         axios.get("https://localhost:7157/Currency/getUserBalance?userId=" + id)
@@ -75,6 +89,55 @@ function BuyCryptoForm(props) {
                 console.log(error);
             });
     }, []);
+
+    const menuIcoins = {};
+    function importAllMenuIcons(r) {
+        r.keys().forEach((key) => (menuIcoins[key] = r(key)));
+    }
+    importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
+
+
+    const coinIcoins = {};
+    function importAllCoinsIcons(r) {
+        r.keys().forEach((key) => (coinIcoins[key] = r(key)));
+    }
+    importAllCoinsIcons(require.context("../../../assets/images/cryptoicons_png/128", false, /\.(png|jpe?g|svg)$/));
+
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            timeZoneName: 'short'
+        };
+        return date.toLocaleDateString('ru-RU', options);
+    }
+
+    const handleButtonClick = (component) => {
+        setSelectedComponent(component);
+    }
+
+    const [selectedComponent, setSelectedComponent] = useState('coversionHistory');
+
+    const renderComponent = () => {
+        switch (selectedComponent) {
+            case 'coversionHistory':
+                return <ConversionHistory id={id} />;
+            case 'depositHistory':
+                return <DepositHistory id={id} />;
+            case 'withdrawMoney':
+                return <WithdrawHistory id={id} />;
+            case 'transactionsHistory':
+                return <TransactionsHistory id={id} />;
+            default:
+                return <ConversionHistory id={id} />;
+        }
+    }
 
     return (
         <div className="container">
@@ -88,7 +151,7 @@ function BuyCryptoForm(props) {
                         {balanceData ? (
                             <div>
                                 <p>{isMasked ? maskedBalance : balanceData.toFixed(3) + "$"}</p>
-                                <button className='btnMaskBalance'onClick={handleMaskBalance}>
+                                <button className='btnMaskBalance' onClick={handleMaskBalance}>
                                     {isMasked ? "Показать" : "Скрыть"}
                                 </button>
                             </div>
@@ -128,18 +191,23 @@ function BuyCryptoForm(props) {
                     </div>
                 </div>
             </div>
-            <div className="buingPanel">
-                <nav class="menu">
-                    <ul>
-                        <li><a href="#section1">Раздел 1</a></li>
-                        <li><a href="#section2">Раздел 2</a></li>
-                        <li><a href="#section3">Раздел 3</a></li>
-                        <li><a href="#section4">Раздел 4</a></li>
-                    </ul>
-                </nav>
+            <div className='historyPanel'>
+                <div className='buttonsBar'>
+                    <nav className="menu1">
+                        <ul>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('coversionHistory')}>Конвертации</button>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('depositHistory')}>Пополнения</button>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('withdrawMoney')}>Выводы</button>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('transactionsHistory')}>Транзакции</button>
+                        </ul>
+                    </nav>
+                </div>
+                <div className='bottomUserPanel'>
+                    {renderComponent()}
+                </div>
             </div>
         </div>
     );
 }
 
-export default BuyCryptoForm;
+export default History;

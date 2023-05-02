@@ -55,7 +55,6 @@ function BuyCryptoForm(props) {
             });
     };
 
-
     const coins = [
         { value: "BTC", label: "Bitcoin - BTC" },
         { value: "ETH", label: "Ethereum - ETH" },
@@ -95,6 +94,12 @@ function BuyCryptoForm(props) {
     }
     importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
 
+    const coinIcoins = {};
+    function importAllCoinsIcons(r) {
+        r.keys().forEach((key) => (coinIcoins[key] = r(key)));
+    }
+    importAllCoinsIcons(require.context("../../../assets/images/cryptoicons_png/128", false, /\.(png|jpe?g|svg)$/));
+
     const [quantity, setQuantity] = useState();
     const [userId, setUserId] = useState(id);
     const [coinName, setCoinName] = useState();
@@ -129,7 +134,6 @@ function BuyCryptoForm(props) {
         setQuantity(event.target.value)
     }
 
-
     const [isMasked, setIsMasked] = useState(false);
 
     const handleMaskBalance = () => {
@@ -139,7 +143,6 @@ function BuyCryptoForm(props) {
     const maskedBalance = "*********";
     const [balanceData, setBalanceData] = useState(null);
     const [data, setData] = useState(null);
-
 
     const [quantityFinalCoin, setCoinFinalQuantity] = useState();
 
@@ -265,6 +268,7 @@ function BuyCryptoForm(props) {
                                         ))}
                                     </select>
                                 </label>
+                                <img className='usdtIcon' src={coinIcoins['./' +  + '.png']} alt="coin" />
                             </div>
                             <div className='ratePanel'>
                                 <br />
