@@ -30,3 +30,11 @@
 {
     border: 2px solid rgb(255, 247, 0) !important;
 }
+
+.btnMaskBalance{
+    border-radius: 5px;
+    border: none;
+    background-color: #11131a;;
+    border: 2px solid rgb(72, 153, 193);
+    color: rgb(72, 153, 193);
+}

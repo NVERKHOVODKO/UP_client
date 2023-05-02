@@ -88,7 +88,7 @@ function BuyCryptoForm(props) {
                         {balanceData ? (
                             <div>
                                 <p>{isMasked ? maskedBalance : balanceData.toFixed(3) + "$"}</p>
-                                <button onClick={handleMaskBalance}>
+                                <button className='btnMaskBalance'onClick={handleMaskBalance}>
                                     {isMasked ? "Показать" : "Скрыть"}
                                 </button>
                             </div>

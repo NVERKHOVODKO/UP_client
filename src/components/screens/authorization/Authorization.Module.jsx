@@ -36,7 +36,6 @@ function LoginPage() {
           };
           history.push('/menu', userParams);
         }
-        // Обработка успешного ответа от сервера
       })
       .catch(error => {
         if (error.response && error.response.status === 400) {
@@ -55,9 +54,6 @@ function LoginPage() {
 
   return (
     <div>
-      {/* <Helmet>
-        <title>UP crypto</title>
-      </Helmet> */}
       <img className='logoImg' src={logo} alt="Logo"></img>
       <div className='line'></div>
       <div className="container">

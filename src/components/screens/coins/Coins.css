@@ -1,0 +1,132 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.navBar {
+    background-color: #212739;
+    text-align: center;
+    float: left;
+    width: 250px;
+    height: 754px;
+}
+
+.coinList {
+    background-color: #11131a;
+    width: 1300px;
+    height: 615px;
+    overflow-y: scroll;
+}
+
+.loginLbl {
+    color: darkgray;
+    margin-bottom: -30px;
+    margin-top: -20px;
+}
+
+.tableCoins {
+    width: 100%;
+    text-align: left;
+    color: darkgray;
+}
+
+.coinIcon {
+    width: 80px;
+    height: 80px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 12px;
+}
+
+th {
+    font-weight: bold;
+    background-color: #11131a;
+}
+
+tr:nth-child(even) {
+    background-color: #1c1e27;
+}
+
+.balanceLbl {
+    color: darkGray;
+}
+
+.MenuCaseItem {
+    text-align: left;
+    font-size: 18px;
+}
+
+.MenuIcon {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.MenuCaseItem .MenuIcon {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.buttonMaskBalance {
+    height: 30px;
+    width: 80px;
+    color: #1c1e27;
+}
+
+.tableHead {
+    font-size: 16px;
+}
+
+.tableCoins {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.tableCoins thead tr {
+    position: sticky;
+    top: 0;
+}
+
+/* Применяем стили для скроллбара веб-кита */
+::-webkit-scrollbar {
+    width: 10px;
+    /* Ширина скроллбара */
+    background-color: #1c1e27;
+    /* Цвет фона */
+}
+
+/* Стили для полосы прокрутки */
+::-webkit-scrollbar-thumb {
+    background-color: #212739;
+    /* Цвет полосы */
+    border-radius: 10px;
+    /* Закругление углов полосы */
+}
+
+/* Стили для полосы прокрутки при наведении курсора на нее */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #212739;
+    /* Изменяем цвет полосы при наведении */
+}
+
+
+.searchPanel {
+    background-color: #1c1e27;
+    width: 1280px;
+    height: 120px;
+    padding: 10px;
+}
+
+.coinListPanel {
+    height: 750px;
+}

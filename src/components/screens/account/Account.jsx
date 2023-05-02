@@ -8,7 +8,10 @@ import { Link } from 'react-router-dom';
 import NavBar from '../../navBar/NavBar.jsx';
 import accountIcon from '../../../assets/images/businessman.png';
 import upIcon from '../../../assets/images/UP_crypto.png';
-
+import LoginHistoryTable from '../../../components/loginHistoryTable/LoginHistoryTable';
+import ReplenishTheBalance from '../../../components/replenishTheBalance/ReplenishTheBalance';
+import WithdrawMoney from '../../../components/withdrawMoney/WithdrawMoney';
+import EditUserMyself from '../../../components/editUserMyself/EditUserMyself';
 
 
 function BuyCryptoForm(props) {
@@ -48,7 +51,69 @@ function BuyCryptoForm(props) {
         r.keys().forEach((key) => (menuIcoins[key] = r(key)));
     }
     importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
+    /* 
+        useEffect(() => {
+            axios.get("https://localhost:7157/User/getUserLoginHistory?id=" + id)
+                .then(response => {
+                    setData(response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }, []); */
 
+    //const handleBtnEditClick
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            timeZoneName: 'short'
+        };
+        return date.toLocaleDateString('ru-RU', options);
+    }
+
+    const [quantityUsd, setQuantity] = useState(0);
+    const [userId] = useState(id);
+
+    function handleReplanish(event) {
+        console.log("quantityUsd: " + quantityUsd + "\nuserId: " + userId);
+        event.preventDefault();
+        axios.post('https://localhost:7157/Transaction/replenishTheBalance', { userId, quantityUsd })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(response);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    const handleButtonClick = (component) => {
+        setSelectedComponent(component);
+      }
+
+    const [selectedComponent, setSelectedComponent] = useState('loginHistory');
+
+    const renderComponent = () => {
+        switch (selectedComponent) {
+            case 'loginHistory':
+                return <LoginHistoryTable id={id} />;
+            case 'replenishBalance':
+                return <ReplenishTheBalance id={id} />;
+            case 'withdrawMoney':
+                return <WithdrawMoney id={id} />;
+                case 'editUserMyself':
+                return <EditUserMyself id={id} />;
+            default:
+                return <EditUserMyself id={id} />;
+        }
+    }
 
     return (
         <div className="container">
@@ -61,7 +126,7 @@ function BuyCryptoForm(props) {
                     {balanceData ? (
                         <div>
                             <p>{isMasked ? maskedBalance : balanceData.toFixed(3) + "$"}</p>
-                            <button onClick={handleMaskBalance}>
+                            <button className='btnMaskBalance' onClick={handleMaskBalance}>
                                 {isMasked ? "Показать" : "Скрыть"}
                             </button>
                         </div>
@@ -122,11 +187,18 @@ function BuyCryptoForm(props) {
                         <img className='upIconImage' src={upIcon} alt="Account icon"></img>
                     </div>
                 </div>
-
                 <div className='buttonsBar'>
-
+                    <nav className="menu1">
+                        <ul>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('editUserMyself')}>Редактирование</button>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('loginHistory')}>История</button>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('withdrawMoney')}>Вывод</button>
+                            <button className="btnAccountMenuCase" onClick={() => handleButtonClick('replenishBalance')}>Пополнить</button>
+                        </ul>
+                    </nav>
                 </div>
                 <div className='bottomUserPanel'>
+                    {renderComponent()}
                 </div>
             </div>
         </div>

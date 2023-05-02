@@ -118,3 +118,11 @@ tr:nth-child(even) {
   /* Изменяем цвет полосы при наведении */
 }
 
+
+.searchPanel{
+  background-color: #1c1e27;
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+}
+

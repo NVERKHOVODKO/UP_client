@@ -9,6 +9,11 @@ import sendCryptoMenu from './components/screens/sendCrypto/SendCrypto.jsx';
 import historyMenu from './components/screens/history/History.jsx';
 import accountMenu from './components/screens/account/Account.jsx';
 import registration from './components/screens/registration/Registration.jsx';
+import coins from './components/screens/coins/Coins.jsx';
+import loginHistoryTable from './components/loginHistoryTable/LoginHistoryTable.jsx';
+import replenishTheBalance from './components/replenishTheBalance/ReplenishTheBalance.jsx';
+import withdrawMoney from './components/withdrawMoney/WithdrawMoney.jsx';
+import editUserMyself from './components/editUserMyself/EditUserMyself.jsx';
 
 
 class App extends Component {
@@ -24,6 +29,11 @@ class App extends Component {
           <Route path="/historyMenu" component={historyMenu} />
           <Route path="/accountMenu" component={accountMenu} />
           <Route path="/registration" component={registration} />
+          <Route path="/coins" component={coins} />
+          <Route path="/loginHistoryTable" component={loginHistoryTable} />
+          <Route path="/replenishTheBalance" component={replenishTheBalance} />
+          <Route path="/withdrawMoney" component={withdrawMoney} />
+          <Route path="/editUserMyself" component={editUserMyself} />
         </Switch>
       </Router>
     )
