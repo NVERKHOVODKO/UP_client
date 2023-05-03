@@ -39,13 +39,13 @@ function DepositHistory({ id }) {
     return (
         <div className='depositHistoryPanel'>
             {data ? (
-                <table className="tableCoins1">
+                <table className="tableReplenisment">
                     <thead>
                         <tr className='tableHead'>
-                            <th>id</th>
-                            <th>date</th>
-                            <th>quantity</th>
-                            <th>commission</th>
+                            <th>№</th>
+                            <th>Дата</th>
+                            <th>Кол-во</th>
+                            <th>Комиссия</th>
                         </tr>
                     </thead>
                     <tbody>

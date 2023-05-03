@@ -45,22 +45,28 @@ function LoginPage() {
   return (
     <div>
       <img className='logoImg' src={logo} alt="Logo"></img>
-      <div className='line'></div>
+      <div className='line'>
+        <h1>
+          Авторизация
+        </h1>
+      </div>
       <div className="container">
         <div className="loginForm">
           <form onSubmit={handleLogin}>
             <div className='loginDataPlace'>
-              <h3 className="errorText">{errorMessage}</h3>
               <label>
                 Имя пользователя:
-                <input className='inputField2' type="text" value={login} onChange={(event) => setUsername(event.target.value)} placeholder="Логин"/>
+                <input className='inputField2' type="text" value={login} onChange={(event) => setUsername(event.target.value)} placeholder="Логин" />
               </label>
               <label>
                 Пароль:
-                <input className='inputField2' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Пароль"/>
+                <input className='inputField2' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Пароль" />
               </label>
-              <button className='buttonLogin' onClick={handleLogin}>Login</button>
-              <div className='createNewAccountLbl'>Нет аккаунта?<Link className="MenuCase" to={{ pathname: '/registration', }}>создайте новый</Link></div>
+              <button className='buttonLogin' onClick={handleLogin}>Войти</button>
+              <div className='createNewAccountLbl'>Нет аккаунта? <Link className="MenuCase" to={{ pathname: '/registration', }}>Cоздайте новый</Link></div>
+              <div className='errorMsgForm'>
+                <h3 className="errorText">{errorMessage}</h3>
+              </div>
             </div>
           </form>
         </div>

@@ -1,23 +1,16 @@
 import { useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CoinTable from './CoinTable.js';
 import styles from './UserMainMenu.css'
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
-import logo from './UP_logo.png'
 import { Link } from 'react-router-dom';
-import NavBar from '../../navBar/NavBar.jsx';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-
+import CoinTable from '../../../components/coinTable/CoinTable.jsx'
 
 
 function App(props) {
   const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
   const [data, setData] = useState(null);
   const [balanceData, setBalanceData] = useState(null);
-  const location = useLocation();
-  const response = location.state.response;
   const coinIcoins = {};
   const menuIcoins = {};
   const [isMasked, setIsMasked] = useState(false);
@@ -44,35 +37,6 @@ function App(props) {
         console.log(error);
       });
   }, []);
-
-  const imagePath = "C:/НЕ СИСТЕМА/BSUIR/второй курс/UP_client/src/assets/images/cryptoicons_png/128/btc.png";
-
-  function formatNumber(num) {
-    if (num >= 1e9) { // если число больше или равно 1 миллиарду
-      return (num / 1e9).toFixed(2) + ' B$'; // делим на 1 миллиард, округляем до 2 знаков после запятой и добавляем букву B
-    } else if (num >= 1e6) { // если число больше или равно 1 миллиону
-      return (num / 1e6).toFixed(2) + ' M$'; // делим на 1 миллион, округляем до 2 знаков после запятой и добавляем букву M
-    } else if (num >= 1e3) { // если число больше или равно 1 тысяче
-      return (num / 1e3).toFixed(2) + ' T$'; // делим на 1 тысячу, округляем до 2 знаков после запятой и добавляем букву T
-    } else { // если число меньше 1 тысячи
-      return num.toString(); // возвращаем число в строковом формате
-    }
-  }
-
-  function formatPercentage(num) {
-    const sign = num >= 0 ? '+' : '-'; // определяем знак числа
-    const percentage = Math.abs(num).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%'; // получаем процентное значение и форматируем его с помощью toLocaleString()
-
-    return sign + percentage; // возвращаем число с знаком "+" или "-"
-  }
-
-  function priceImpact(num) {
-    const sign = num >= 0 ? '+' : '-'; // определяем знак числа
-    const percentage = Math.abs(num).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 3 }) + '$'; // получаем процентное значение и форматируем его с помощью toLocaleString()
-
-    return sign + percentage; // возвращаем число с знаком "+" или "-"
-  }
-
 
   function importAllCoinsIcons(r) {
     r.keys().forEach((key) => (coinIcoins[key] = r(key)));
@@ -121,6 +85,9 @@ function App(props) {
           <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
         </div>
         <div className="MenuCaseItem">
+          <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Продать</Link>
+        </div>
+        <div className="MenuCaseItem">
           <Link className="MenuCase" to={{ pathname: '/historyMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./stake.png']} alt="Sell icon"></img>История</Link>
         </div>
         <div className="MenuCaseItem">
@@ -128,10 +95,6 @@ function App(props) {
         </div>
         <div className="MenuCaseItem">
           <Link className="MenuCase" to={{ pathname: '/coins', state: props.location.state }}> <img className="MenuIcon" src={menuIcoins['./cryptocurrencies.png']} alt="Token icon"></img>Токены</Link>
-        </div>
-        <div className="MenuCaseItem">
-          <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./settings.png']} alt="Settings icon"></img>
-            Настройки</a>
         </div>
         <div className="MenuCaseItem">
           <Link className="MenuCase" to={{ pathname: '/accountMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Account icon"></img>Аккаунт</Link>
@@ -145,42 +108,7 @@ function App(props) {
             alt="Exit icon"></img>Выход</Link>
         </div>
       </div>
-      <div className="coinList">
-        {data ? (
-          <table className="tableCoins">
-            <thead>
-              <tr className='tableHead'>
-                <th>Монета</th>
-                <th>Полн. назв.</th>
-                <th>Сокр.</th>
-                <th>Цена</th>
-                <th>Кол-во</th>
-                <th>Дневн. объем</th>
-                <th>Изм. цены</th>
-                <th>Проц. изм.</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map(coin => (
-                <tr key={coin.id}>
-                  <td>
-                    <img className="coinIcon" src={coinIcoins['./' + coin.shortName + '.png']} alt="icon" />
-                  </td>
-                  <td>{coin.fullName}</td>
-                  <td>{coin.shortName}</td>
-                  <td>{(coin.price) + '$'}</td>
-                  <td>{coin.quantity.toFixed(4)}</td>
-                  <td>{formatNumber(coin.dailyVolume)}</td>
-                  <td>{priceImpact(coin.dailyImpact)}</td>
-                  <td>{formatPercentage(coin.percentagePriceChangePerDay)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
+        <CoinTable id={id}/>
     </div>
   );
 }

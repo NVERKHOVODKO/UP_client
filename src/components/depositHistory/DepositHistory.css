@@ -1,0 +1,35 @@
+.tableReplenisment {
+    border-collapse: collapse;
+    width: 450px;
+    font-size: 14px;
+    text-align: left;
+}
+
+th.id,
+td.id {
+    max-width: 30px;
+}
+
+th {
+    font-weight: bold;
+    background-color: #11131a;
+}
+
+tr:nth-child(even) {
+    background-color: #1c1e27;
+}
+
+td:nth-child(0) {
+    max-width: 30px;
+}
+
+th.commission, td.commission {
+    max-width: 80px;
+}
+
+th.date,
+th.date
+{
+    font-weight: bold;
+    background-color: #11131a;
+}

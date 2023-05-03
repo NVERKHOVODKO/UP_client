@@ -1,54 +1,30 @@
-import './BuyCrypto.css';
+import './SellCrypto.css';
 import usdtIcon from '../../../assets/images/cryptoicons_png/64/usdt.png';
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 
-function BuyCryptoForm(props) {
+function SellCrypto(props) {
     const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
     const [errorMessage, setText] = useState('________________________________________________________________');
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchCoinQuantity1();
+        getCoinQuantityInUserWallet();
     };
 
     const [quantityCoin, setCoinQuantity] = useState();
+    const [withdrawSum, setWithdrawSum] = useState();
+    const [quantityMaxCoin, setCoinMaxQuantity] = useState();
 
-
-    useEffect(() => {
-        const fetchCoinQuantity = () => {
-            axios
-                .get(
-                    "https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" +
-                    id +
-                    "&coinName=usdt" +
-                    "&quantityUSD="
-                )
-                .then((response) => {
-                    setCoinQuantity(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        };
-        fetchCoinQuantity();
-    }, []);
-
-
-    const fetchCoinQuantity1 = () => {
+    const getCoinQuantityInUserWallet = (coin) => {
+        console.log("userId: " + id + "\ncoinName: " + coin);
         axios
-            .get(
-                "https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" +
-                id +
-                "&coinName=usdt" +
-                "&quantityUSD="
-            )
+            .get("https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" + id + "&coinName=" + coin)
             .then((response) => {
-                setCoinQuantity(response.data);
+                setCoinMaxQuantity(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -106,13 +82,13 @@ function BuyCryptoForm(props) {
             .then(response => {
                 console.log("Coinname: " + coinName);
                 setText(response.data);
-                fetchCoinQuantity1();
+                getCoinQuantityInUserWallet();
             })
             .catch(error => {
                 setText(error.response.data);
                 console.log(error);
             });
-        fetchCoinQuantity1();
+            getCoinQuantityInUserWallet();
     }
 
     const handleQuantityChange = (event) => {
@@ -153,6 +129,23 @@ function BuyCryptoForm(props) {
             });
     }, []);
 
+    
+
+    const handleSellAll = (event) => {
+        getCoinQuantityInUserWallet();
+    }
+
+    /* useEffect(() => {
+        axios
+            .get('https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=' + id + '&coinName=' + coinName)
+            .then((response) => {
+                setCoinFinalQuantity(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [coinName]); */
+
     useEffect(() => {
         axios
             .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${coinName}&quantityUSD=${quantity}`)
@@ -178,6 +171,8 @@ function BuyCryptoForm(props) {
         if (selectedCoin) {
             setCoinName(event.target.value.toLowerCase());
             setIconFinal(coinIcoins['./' + event.target.value.toLowerCase() + '.png'])
+            getCoinQuantityInUserWallet(event.target.value.toLowerCase());
+            
         }
     };
     const [iconSecond, setIconFinal] = useState(coinIcoins['./' + coinName + '.png']);
@@ -237,39 +232,30 @@ function BuyCryptoForm(props) {
                 <div className="panel">
                     <div className="buy-crypto-form">
                         <h1 className='mainLbl'>
-                            Buy crypto
+                            Продать криптовалюту
                         </h1>
                         <form onSubmit={handleSubmit}>
-                            <div className='sumPanel'>
-                                <label>
-                                    Отправить:
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <input type="number" placeholder="Введите сумму" onChange={handleQuantityChange} />
-                                    <h4>max: {quantityCoin ? quantityCoin.toFixed(5) : 0} USDT</h4>
-                                    <img className='usdtIcon' src={usdtIcon} alt="usdt" />
-                                </label>
-                            </div>
-                            <br />
-                            <div className="coinPanel">
-                                <label>
-                                    Получить:
-                                    <br />
-                                    <br />
-                                    <select className="selectInput" onChange={handleTokenChange}>
-                                        {coins.map((coin) => (
-                                            <option key={coin.value} value={coin.value}>
-                                                {coin.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <img className='usdtIcon' src={iconSecond} alt="coin" />
-                                </label>
+                            <div className='withdrawDataPanel'>
+                                Продать:
+                                <br />
+                                <br />
+                                <br />
+                                <select className="selectInput" onChange={handleTokenChange}>
+                                    {coins.map((coin) => (
+                                        <option key={coin.value} value={coin.value}>
+                                            {coin.label}
+                                        </option>
+                                    ))}
+                                </select>
+                                <br />
+                                <input type="number" placeholder="Введите сумму" value={withdrawSum} onChange={handleQuantityChange} />
+                                <br />
+                                <h4 onClick={handleSellAll}>max: {quantityMaxCoin ? quantityMaxCoin.toFixed(5) : 0} USDT</h4>
+                                <img className='usdtIcon' src={iconSecond} alt="coin" />
                             </div>
                             <div className='ratePanel'>
                                 <br />
-                                Вы получите ~ {quantityFinalCoin} {coinName}
+                                Вы получите ~ {quantityFinalCoin} Tether
                             </div>
                             <h3 className="errorText">{errorMessage}</h3>
                             <br />
@@ -282,4 +268,4 @@ function BuyCryptoForm(props) {
     );
 }
 
-export default BuyCryptoForm;
+export default SellCrypto;

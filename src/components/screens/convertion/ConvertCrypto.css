@@ -23,6 +23,11 @@
     padding-bottom: 120px;
 }
 
+.inputQuantityCoinConvert{
+    margin-top: -100px;
+    padding: 0;
+}
+
 .buttonBuy:hover {
     background-color: #212739;
     color: rgb(72, 153, 193);

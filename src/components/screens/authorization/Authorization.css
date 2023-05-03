@@ -3,6 +3,8 @@
     height: 50px;
     background-color: rgb(72, 153, 193);
     margin-bottom: 30px;
+    text-align: center;
+    color: #11131a;
 }
 
 .container {
@@ -124,7 +126,7 @@ img {
     font-size: 20px;
 }
 
-.loginDataPlace{
+.loginDataPlace {
     padding: 50px;
     padding-left: 400px;
 }
@@ -135,7 +137,7 @@ img {
 }
 
 
-.buttonLogin{
+.buttonLogin {
     height: 40px;
     border: none;
     background-color: rgb(72, 153, 193);
@@ -143,18 +145,19 @@ img {
     font-size: 20px;
     border-radius: 5px;
     width: 356px !important;
-    margin-left: 10px;
+    margin-left: 40px;
 }
 
-h4{
+h4 {
     margin: 0px;
 }
 
-.createNewAccountLbl{
-    margin-left: 12px;
+.createNewAccountLbl {
+    margin-top: 10px;
+    margin-left: 42px;
 }
 
-.inputField2{
+.inputField2 {
     margin: 10px;
     background-color: #11131a;
     border: 2px solid rgb(72, 153, 193);
@@ -165,7 +168,24 @@ h4{
 }
 
 .inputField2:hover,
-.inputField2:focus
-{
+.inputField2:focus {
     border: 2px solid rgb(255, 247, 0) !important;
+}
+
+.regDataPlace {
+    display: flex;
+    flex-direction: column;
+}
+
+.regForm1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageQrCode{
+    margin-bottom: 10px;
+}
+.errorMsgForm{
+    margin-left: 40px;
 }

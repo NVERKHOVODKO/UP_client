@@ -38,7 +38,7 @@ function TransactionsHistory({ id }) {
 
     return (
         <div className='transactionsHistoryPanel'>
-            <div className='depositHistoryPanel'>
+            <div className='recievedHistoryPanel'>
                 {data ? (
                     <table className="tableCoins1">
                         <thead>
@@ -64,7 +64,7 @@ function TransactionsHistory({ id }) {
                     <p>Loading...</p>
                 )} 
             </div>
-            <div className='depositHistoryPanel'>
+            <div className='sendedHistoryPanel'>
                 {data ? (
                     <table className="tableCoins1">
                         <thead>

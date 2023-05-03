@@ -3,20 +3,15 @@ import usdtIcon from '../../../assets/images/cryptoicons_png/64/usdt.png';
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import NavBar from '../../navBar/NavBar.jsx';
-
-
 
 function BuyCryptoForm(props) {
     const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
-    const [errorMessage, setText] = useState('-----');
+    const [errorMessage, setText] = useState('________________________________________________________________');
+    const [quantityCoinConvert, setQuantityCoinConvertText] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
     };
-
-    const [quantityCoin, setCoinQuantity] = useState();
 
     const coins = [
         { value: "BTC", label: "Bitcoin - BTC" },
@@ -67,6 +62,7 @@ function BuyCryptoForm(props) {
         const selectedCoin = coins.find((coin) => coin.value === event.target.value);
         if (selectedCoin) {
             setShortNameStart(selectedCoin.value.toLowerCase());
+            setIconStart(coinIcoins['./' + selectedCoin.value.toLowerCase() + '.png']);
         }
     }
 
@@ -74,22 +70,26 @@ function BuyCryptoForm(props) {
         const selectedCoin = coins.find((coin) => coin.value === event.target.value);
         if (selectedCoin) {
             setShortNameFinal(selectedCoin.value.toLowerCase());
+            setIconFinal(coinIcoins['./' + selectedCoin.value.toLowerCase() + '.png']);
         }
     }
+
+    const coinIcoins = {};
+    function importAllCoinsIcons(r) {
+        r.keys().forEach((key) => (coinIcoins[key] = r(key)));
+    }
+    importAllCoinsIcons(require.context("../../../assets/images/cryptoicons_png/128", false, /\.(png|jpe?g|svg)$/));
+    
 
     function handleConvert(event) {
         setText('Загрузка...');
         event.preventDefault();
         axios.post('https://localhost:7157/Transaction/convert', { shortNameStart, shortNameFinal, quantity, userId })
             .then(response => {
-                if (response.status === 200) {
-                    setText('Транзакция совершена успешно');
-                }
+                setText(response.data);
             })
             .catch(error => {
-                if (error.response && error.response.status === 400) {
-                    setText('Некорректные данные');
-                }
+                setText(error.response.data);
                 console.log(error);
             });
     }
@@ -98,35 +98,11 @@ function BuyCryptoForm(props) {
         setQuantity(event.target.value)
     }
 
-    const [quantityCoinMax, setMaxCoinQuantity] = useState();
-
-
-    /* const fetchCoinQuantity1 = () => {
-        axios
-            .get(
-                "https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" +
-                id +
-                "&coinName=" +
-                "&quantityUSD="
-            )
-            .then((response) => {
-                setMaxCoinQuantity(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }; */
-
     const [isMasked, setIsMasked] = useState(false);
 
     const handleMaskBalance = () => {
         setIsMasked(!isMasked);
     };
-
-    /* const handleButtonPutAllClick = (event) => {
-        setQuantity(event.target.value)
-    } */
-
     const maskedBalance = "*********";
     const [balanceData, setBalanceData] = useState(null);
     const [data, setData] = useState(null);
@@ -141,6 +117,27 @@ function BuyCryptoForm(props) {
                 console.log(error);
             });
     }, []);
+
+    /* function GetConvertQuantity(event) {
+        setQuantityCoinConvertText('Загрузка...');
+        useEffect(() => {
+            axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + shortNameStart + "&shortNameFinal=" + shortNameFinal + "&quantity=" + quantity + "&userId=" + id)
+                .then(response => {
+                    console.log(data);
+                    setQuantityCoinConvertText(response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }, []);
+    } */
+
+    /* const handleQuantityChange = (event) => {
+        setQuantity(event.target.value)
+    } */
+
+    const [iconFirst, setIconStart] = useState(coinIcoins['./' + shortNameStart + '.png']);
+    const [iconSecond, setIconFinal] = useState(coinIcoins['./' + shortNameFinal + '.png']);
 
     return (
         <div className="container">
@@ -215,12 +212,10 @@ function BuyCryptoForm(props) {
                                     </select>
                                 </label>
                                 <br />
-                                <br />
                                 <label>
-                                    <img className='usdtIcon' src={usdtIcon} alt="usdt" />
-                                    <input type="text" placeholder="Введите сумму" onChange={handleQuantityChange} />
+                                    <img className='usdtIcon' src={iconFirst} alt="usdt" />
+                                    <input className='inputQuantityCoinConvert' type="number" placeholder="Введите сумму" onChange={handleQuantityChange} />
                                 </label>
-                                {/* <button className='buttonPutAll' type="submit" onClick={handleButtonPutAllClick}>Макс.</button> */}
                             </div>
                             <br />
                             <div className="secondCoinPanel">
@@ -235,11 +230,12 @@ function BuyCryptoForm(props) {
                                             </option>
                                         ))}
                                     </select>
+                                    <img className='usdtIcon' src={iconSecond} alt="" />
                                 </label>
                             </div>
                             <div className='ratePanel'>
                                 <br />
-                                Вы получите ~
+                                Вы получите ~ {quantityCoinConvert}
                             </div>
                             <h3 className="errorText">{errorMessage}</h3>
                             <br />

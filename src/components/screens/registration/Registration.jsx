@@ -2,6 +2,8 @@ import styles from './Registration.css'
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../authorization/UP_logo.png'
+
 
 
 function AuthorizationPage() {
@@ -43,24 +45,29 @@ function AuthorizationPage() {
 
 
   return (
-    <div className='container1'>
-      <h1>Регистрация</h1>
-      <div className='regForm'>
-        <input className='inputField1' type="text" value={login} onChange={(event) => setLogin(event.target.value)} placeholder="Введите логин" />
-        <input className='inputField1' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Введите пароль" />
-        <input className='inputField1' type="password" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} placeholder="Повторите пароль" />
-        <h3 className="errorText">{errorMessage}</h3>
-        <label>
-      <input
-        type="radio"
-        value={value}
-        checked={checked}
-        onChange={onChange}
-      />
-      {label}
-    </label>
-        <button className='buttonLogin' onClick={handleCreateNew}>Создать аккаунт</button>
-        <Link to={{ pathname: '/', }}>У меня уже есть аккаунт</Link>
+    <div>
+      <img className='logoImg' src={logo} alt="Logo"></img>
+      <div className='line'>
+        <h1>
+          Регистрация
+        </h1>
+      </div>
+      <div className="container11">
+        <div className="regForm1">
+          <form>
+            <div className='regDataPlace'>
+              <input className='inputField2' type="text" value={login} onChange={(event) => setLogin(event.target.value)} placeholder="Логин" />
+              <input className='inputField2' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Пароль" />
+              <input className='inputField2' type="password" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} placeholder="Повторите пароль" />
+              <button className='buttonLogin' onClick={handleCreateNew}>Создать</button>
+              <div className='createNewAccountLbl'><Link className="MenuCase" to={{ pathname: '/', }}>У меня уже есть аккаунт</Link></div>
+              <h3 className="errorText">{errorMessage}</h3>
+            </div>
+          </form>
+        </div>
+        <div className='bottomPanel'>
+          &copy;2023 UPCrypto.com. All rights reserved. <a href="http://www.example.com" target="_self">Cookie settings</a>
+        </div>
       </div>
     </div>
   );

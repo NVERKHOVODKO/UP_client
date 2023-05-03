@@ -18,6 +18,8 @@ import conversionHistory from './components/conversions/Conversions.jsx';
 import depositHistory from './components/depositHistory/DepositHistory.jsx';
 import withdrawHistory from './components/withdrawHistory/WithdrawHistory.jsx';
 import transactionsHistory from './components/transactionsHistory/TransactionsHistory.jsx';
+import coinTable from './components/coinTable/CoinTable.jsx';
+import sellCrypto from './components/screens/sellCrypto/SellCrypto.jsx';
 
 
 
@@ -44,6 +46,8 @@ class App extends Component {
           <Route path="/depositHistory" component={depositHistory} />
           <Route path="/withdrawHistory" component={withdrawHistory} />
           <Route path="/transactionsHistory" component={transactionsHistory} />
+          <Route path="/coinTable" component={coinTable} />
+          <Route path="/sellCrypto" component={sellCrypto} />
         </Switch>
       </Router>
     )

@@ -11,7 +11,7 @@ import NavBar from '../../navBar/NavBar.jsx';
 
 function BuyCryptoForm(props) {
     const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
-    const [errorMessage, setText] = useState('-----');
+    const [errorMessage, setText] = useState('________________________________________________________________');
     const handleSubmit = (event) => {
         event.preventDefault();
     };
@@ -59,13 +59,14 @@ function BuyCryptoForm(props) {
 
     const [receiverId, setRecieverId] = useState(id);
     const [senderId] = useState(id);
-    const [coinName, setCoinName] = useState();
+    const [coinName, setCoinName] = useState('btc');
     const [quantityForSend, setQuantityForSend] = useState();
 
     const handleTokenChange = (event) => {
         const selectedCoin = coins.find((coin) => coin.value === event.target.value);
         if (selectedCoin) {
             setCoinName(selectedCoin.value.toLowerCase());
+            setIconFinal(coinIcoins['./' + event.target.value.toLowerCase() + '.png'])
         }
     }
 
@@ -78,14 +79,10 @@ function BuyCryptoForm(props) {
         event.preventDefault();
         axios.post('https://localhost:7157/Transaction/sendCrypto', { receiverId, senderId, coinName, quantityForSend })
             .then(response => {
-                if (response.status === 200) {
-                    setText('Транзакция совершена успешно');
-                }
+                setText(response.data);
             })
             .catch(error => {
-                if (error.response && error.response.status === 400) {
-                    setText('Некорректные данные');
-                }
+                setText(error.response.data);
                 console.log(error);
             });
     }
@@ -114,6 +111,14 @@ function BuyCryptoForm(props) {
                 console.log(error);
             });
     }, []);
+
+    const coinIcoins = {};
+    function importAllCoinsIcons(r) {
+        r.keys().forEach((key) => (coinIcoins[key] = r(key)));
+    }
+    importAllCoinsIcons(require.context("../../../assets/images/cryptoicons_png/128", false, /\.(png|jpe?g|svg)$/));
+
+    const [iconSecond, setIconFinal] = useState(coinIcoins['./' + coinName + '.png']);
 
     return (
         <div className="container">
@@ -186,10 +191,9 @@ function BuyCryptoForm(props) {
                                     </select>
                                 </label>
                                 <br />
-                                <br />
                                 <label>
-                                    <img className='usdtIcon' src={usdtIcon} alt="usdt" />
-                                    <input type="text" placeholder="Введите сумму" onChange={handleQuantityChange} />
+                                    <img className='usdtIcon' src={iconSecond} alt="coin" />
+                                    <input type="number" placeholder="Введите сумму" onChange={handleQuantityChange} />
                                 </label>
                             </div>
                             <br />
