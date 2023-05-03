@@ -60,11 +60,11 @@ function Conversions({id}) {
                                         <td>
                                             <img className="coinIcon" src={coinIcoins['./' + conversion.beginCoinShortname + '.png']} alt="icon" />
                                         </td>
-                                        <td>{conversion.beginCoinShortname}({conversion.beginCoinQuantity.toFixed(5)})</td>
+                                        <td>{conversion.beginCoinShortname}({conversion.beginCoinQuantity.toFixed(9)})</td>
                                         <td>
                                             <img className="coinIcon" src={coinIcoins['./' + conversion.endCoinShortname + '.png']} alt="icon" />    
                                         </td>
-                                        <td>{conversion.endCoinShortname}({conversion.endCoinQuantity.toFixed(5)})</td>
+                                        <td>{conversion.endCoinShortname}({conversion.endCoinQuantity.toFixed(9)})</td>
                                         <td>{formatDate(conversion.date)}</td>
                                         <td>{conversion.commission.toFixed(3) + ' $'}</td>
                                     </tr>

@@ -59,9 +59,9 @@ function AuthorizationPage() {
               <input className='inputField2' type="text" value={login} onChange={(event) => setLogin(event.target.value)} placeholder="Логин" />
               <input className='inputField2' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Пароль" />
               <input className='inputField2' type="password" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} placeholder="Повторите пароль" />
-              <button className='buttonLogin' onClick={handleCreateNew}>Создать</button>
+              <button className='buttonRegistrations' onClick={handleCreateNew}>Создать</button>
               <div className='createNewAccountLbl'><Link className="MenuCase" to={{ pathname: '/', }}>У меня уже есть аккаунт</Link></div>
-              <h3 className="errorText">{errorMessage}</h3>
+              <h3 className="errorText1">{errorMessage}</h3>
             </div>
           </form>
         </div>

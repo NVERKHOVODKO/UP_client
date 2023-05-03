@@ -71,14 +71,14 @@ function SellCrypto(props) {
     importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
 
 
-    const [quantity, setQuantity] = useState();
+    const [quantityForSell, setQuantity] = useState();
     const [userId, setUserId] = useState(id);
     const [coinName, setCoinName] = useState('btc');
 
-    function handleBuy(event) {
+    function handleSell(event) {
         setText('Загрузка...');
         event.preventDefault();
-        axios.post('https://localhost:7157/Transaction/buyCrypto', { userId, coinName, quantity })
+        axios.post('https://localhost:7157/Transaction/sellCrypto', { userId, coinName, quantityForSell })
             .then(response => {
                 console.log("Coinname: " + coinName);
                 setText(response.data);
@@ -88,7 +88,7 @@ function SellCrypto(props) {
                 setText(error.response.data);
                 console.log(error);
             });
-            getCoinQuantityInUserWallet();
+        getCoinQuantityInUserWallet();
     }
 
     const handleQuantityChange = (event) => {
@@ -118,19 +118,6 @@ function SellCrypto(props) {
             });
     }, []);
 
-    useEffect(() => {
-        axios.get("https://localhost:7157/Transaction/getCoinQuantity?coinName=btc&quantityUSD=" + quantity)
-            .then(response => {
-                console.log(data);
-                setCoinFinalQuantity(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
-
-    
-
     const handleSellAll = (event) => {
         getCoinQuantityInUserWallet();
     }
@@ -148,7 +135,7 @@ function SellCrypto(props) {
 
     useEffect(() => {
         axios
-            .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${coinName}&quantityUSD=${quantity}`)
+            .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${coinName}&quantityUSD=${quantityForSell}`)
             .then((response) => {
                 setCoinFinalQuantity(response.data);
             })
@@ -165,18 +152,33 @@ function SellCrypto(props) {
     importAllCoinsIcons(require.context("../../../assets/images/cryptoicons_png/128", false, /\.(png|jpe?g|svg)$/));
 
 
-
     const handleTokenChange = (event) => {
         const selectedCoin = coins.find((coin) => coin.value === event.target.value);
         if (selectedCoin) {
             setCoinName(event.target.value.toLowerCase());
             setIconFinal(coinIcoins['./' + event.target.value.toLowerCase() + '.png'])
             getCoinQuantityInUserWallet(event.target.value.toLowerCase());
-            
+            handleConvert(event.target.value.toLowerCase());
         }
     };
-    const [iconSecond, setIconFinal] = useState(coinIcoins['./' + coinName + '.png']);
 
+    const [iconSecond, setIconFinal] = useState(coinIcoins['./' + coinName + '.png']);
+    const [shortNameFinal] = useState('usdt');
+
+
+
+    const handleConvert = (coin) => {
+        console.log("shortNameStart: " + coin + "\nquantity: " + quantityForSell + "\nuserId: " + userId + "\nshortNameFinal=usdt");
+        axios.get('https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=' + coin + '&shortNameFinal=usdt&quantity=' + quantityForSell + '&userId=' + id)
+            .then(response => {
+                console.log(response);
+                setCoinFinalQuantity(response.data);
+            })
+            .catch(error => {
+                setText(error.response.data);
+                console.log(error);
+            });
+    };
 
     return (
         <div className="container">
@@ -248,9 +250,9 @@ function SellCrypto(props) {
                                     ))}
                                 </select>
                                 <br />
-                                <input type="number" placeholder="Введите сумму" value={withdrawSum} onChange={handleQuantityChange} />
+                                <input type="number" placeholder="Введите сумму" value={quantityForSell} onChange={handleQuantityChange} />
                                 <br />
-                                <h4 onClick={handleSellAll}>max: {quantityMaxCoin ? quantityMaxCoin.toFixed(5) : 0} USDT</h4>
+                                <h4 onClick={handleSellAll}>max: {quantityMaxCoin ? quantityMaxCoin.toFixed(5) : 0}</h4>
                                 <img className='usdtIcon' src={iconSecond} alt="coin" />
                             </div>
                             <div className='ratePanel'>
@@ -259,7 +261,7 @@ function SellCrypto(props) {
                             </div>
                             <h3 className="errorText">{errorMessage}</h3>
                             <br />
-                            <button className='buttonBuy' type="submit" onClick={handleBuy}>Купить</button>
+                            <button className='buttonBuy' type="submit" onClick={handleSell}>Продать</button>
                         </form>
                     </div>
                 </div>

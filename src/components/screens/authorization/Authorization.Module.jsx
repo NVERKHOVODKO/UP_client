@@ -63,7 +63,7 @@ function LoginPage() {
                 <input className='inputField2' type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Пароль" />
               </label>
               <button className='buttonLogin' onClick={handleLogin}>Войти</button>
-              <div className='createNewAccountLbl'>Нет аккаунта? <Link className="MenuCase" to={{ pathname: '/registration', }}>Cоздайте новый</Link></div>
+              <div className='createNewAccountLbl1'>Нет аккаунта? <Link className="MenuCase" to={{ pathname: '/registration', }}>Cоздайте новый</Link></div>
               <div className='errorMsgForm'>
                 <h3 className="errorText">{errorMessage}</h3>
               </div>

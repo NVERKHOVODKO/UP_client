@@ -1,4 +1,4 @@
-import styles from'./History.css';
+import styles from './History.css';
 import usdtIcon from '../../../assets/images/cryptoicons_png/64/usdt.png';
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
 import axios from 'axios';
@@ -10,9 +10,6 @@ import ConversionHistory from '../../conversions/Conversions';
 import DepositHistory from '../../depositHistory/DepositHistory';
 import WithdrawHistory from '../../withdrawHistory/WithdrawHistory';
 import TransactionsHistory from '../../transactionsHistory/TransactionsHistory';
-
-
-
 
 
 
@@ -169,14 +166,16 @@ function History(props) {
                         <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
                     </div>
                     <div className="MenuCaseItem">
+                        <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Продать</Link>
+                    </div>
+                    <div className="MenuCaseItem">
                         <Link className="MenuCase" to={{ pathname: '/historyMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./stake.png']} alt="Sell icon"></img>История</Link>
                     </div>
                     <div className="MenuCaseItem">
                         <Link className="MenuCase" to={{ pathname: '/sendCrypto', state: props.location.state }}> <img className="MenuIcon" src={menuIcoins['./money.png']} alt="Send icon"></img>Отправить</Link>
                     </div>
                     <div className="MenuCaseItem">
-                        <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./settings.png']} alt="Settings icon"></img>
-                            Настройки</a>
+                        <Link className="MenuCase" to={{ pathname: '/coins', state: props.location.state }}> <img className="MenuIcon" src={menuIcoins['./cryptocurrencies.png']} alt="Token icon"></img>Токены</Link>
                     </div>
                     <div className="MenuCaseItem">
                         <Link className="MenuCase" to={{ pathname: '/accountMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Account icon"></img>Аккаунт</Link>
