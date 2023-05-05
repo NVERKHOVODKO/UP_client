@@ -63,12 +63,14 @@ function BuyCryptoForm(props) {
         if (selectedCoin) {
             setShortNameStart(selectedCoin.value.toLowerCase());
             setIconStart(coinIcoins['./' + selectedCoin.value.toLowerCase() + '.png']);
+            fetchCoinQuantity(selectedCoin.value.toLowerCase());
         }
     }
 
     const handleFinalTokenChange = (event) => {
         const selectedCoin = coins.find((coin) => coin.value === event.target.value);
         if (selectedCoin) {
+            GetConvertQuantity(selectedCoin.value.toLowerCase());
             setShortNameFinal(selectedCoin.value.toLowerCase());
             setIconFinal(coinIcoins['./' + selectedCoin.value.toLowerCase() + '.png']);
         }
@@ -118,26 +120,40 @@ function BuyCryptoForm(props) {
             });
     }, []);
 
-    /* function GetConvertQuantity(event) {
+    function GetConvertQuantity(secondCoin) {
         setQuantityCoinConvertText('Загрузка...');
-        useEffect(() => {
-            axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + shortNameStart + "&shortNameFinal=" + shortNameFinal + "&quantity=" + quantity + "&userId=" + id)
+        axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + shortNameStart + "&shortNameFinal=" + secondCoin + "&quantity=" + quantity + "&userId=" + id)
                 .then(response => {
                     console.log(data);
                     setQuantityCoinConvertText(response.data);
                 })
                 .catch(error => {
+                    setQuantityCoinConvertText('?');
                     console.log(error);
                 });
-        }, []);
-    } */
-
-    /* const handleQuantityChange = (event) => {
-        setQuantity(event.target.value)
-    } */
+    }
 
     const [iconFirst, setIconStart] = useState(coinIcoins['./' + shortNameStart + '.png']);
     const [iconSecond, setIconFinal] = useState(coinIcoins['./' + shortNameFinal + '.png']);
+    const [quantityCoin, setCoinQuantity] = useState();
+
+    const fetchCoinQuantity = (coinName) => {
+        console.log("id: " + id + "\ncoinName: " + coinName);
+        axios
+            .get(
+                "https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" +
+                id +
+                "&coinName=" + coinName +
+                "&quantityUSD="
+            )
+            .then((response) => {
+                setCoinQuantity(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
 
     return (
         <div className="container">
@@ -197,7 +213,7 @@ function BuyCryptoForm(props) {
                 <div className="panel">
                     <div className="buy-crypto-form">
                         <h1 className='mainLbl'>
-                            Convert crypto
+                            Конвертировать
                         </h1>
                         <form onSubmit={handleSubmit}>
                             <div className='firstCoinPanel'>
@@ -215,6 +231,8 @@ function BuyCryptoForm(props) {
                                 </label>
                                 <br />
                                 <label>
+                                    <h4>max: {quantityCoin ? quantityCoin.toFixed(5) : 0} {shortNameStart.toUpperCase()}</h4>
+                                    <br />
                                     <img className='usdtIcon' src={iconFirst} alt="usdt" />
                                     <input className='inputQuantityCoinConvert' type="number" placeholder="Введите сумму" onChange={handleQuantityChange} />
                                 </label>
@@ -237,7 +255,7 @@ function BuyCryptoForm(props) {
                             </div>
                             <div className='ratePanel'>
                                 <br />
-                                Вы получите ~ {quantityCoinConvert}
+                                Вы получите ~ {quantityCoinConvert} {shortNameFinal.toLocaleUpperCase()}
                             </div>
                             <h3 className="errorText">{errorMessage}</h3>
                             <br />

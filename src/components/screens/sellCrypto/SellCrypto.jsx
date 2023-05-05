@@ -1,5 +1,4 @@
 import './SellCrypto.css';
-import usdtIcon from '../../../assets/images/cryptoicons_png/64/usdt.png';
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
@@ -15,8 +14,6 @@ function SellCrypto(props) {
         getCoinQuantityInUserWallet();
     };
 
-    const [quantityCoin, setCoinQuantity] = useState();
-    const [withdrawSum, setWithdrawSum] = useState();
     const [quantityMaxCoin, setCoinMaxQuantity] = useState();
 
     const getCoinQuantityInUserWallet = (coin) => {
@@ -71,7 +68,7 @@ function SellCrypto(props) {
     importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
 
 
-    const [quantityForSell, setQuantity] = useState();
+    const [quantityForSell, setQuantity] = useState(0);
     const [userId, setUserId] = useState(id);
     const [coinName, setCoinName] = useState('btc');
 
@@ -92,7 +89,8 @@ function SellCrypto(props) {
     }
 
     const handleQuantityChange = (event) => {
-        setQuantity(event.target.value)
+        //setQuantity(event.target.value);
+        handleConvert(event.target.value);
     }
 
     const [isMasked, setIsMasked] = useState(false);
@@ -119,31 +117,10 @@ function SellCrypto(props) {
     }, []);
 
     const handleSellAll = (event) => {
-        getCoinQuantityInUserWallet();
+        console.log("quantityMaxCoin: " + quantityMaxCoin);
+        setQuantity(quantityMaxCoin);
+        handleConvert(event);
     }
-
-    /* useEffect(() => {
-        axios
-            .get('https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=' + id + '&coinName=' + coinName)
-            .then((response) => {
-                setCoinFinalQuantity(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [coinName]); */
-
-    useEffect(() => {
-        axios
-            .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${coinName}&quantityUSD=${quantityForSell}`)
-            .then((response) => {
-                setCoinFinalQuantity(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [coinName]);
-
 
     const coinIcoins = {};
     function importAllCoinsIcons(r) {
@@ -168,6 +145,11 @@ function SellCrypto(props) {
 
 
     const handleConvert = (coin) => {
+        /* if (quantity === "" || quantity === null) {
+            //setQuantity(0);
+            return;
+        } */
+
         console.log("shortNameStart: " + coin + "\nquantity: " + quantityForSell + "\nuserId: " + userId + "\nshortNameFinal=usdt");
         axios.get('https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=' + coin + '&shortNameFinal=usdt&quantity=' + quantityForSell + '&userId=' + id)
             .then(response => {
@@ -209,17 +191,19 @@ function SellCrypto(props) {
                     <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
                 </div>
                 <div className="MenuCaseItem">
+                    <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Продать</Link>
+                </div>
+                <div className="MenuCaseItem">
                     <Link className="MenuCase" to={{ pathname: '/historyMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./stake.png']} alt="Sell icon"></img>История</Link>
                 </div>
                 <div className="MenuCaseItem">
                     <Link className="MenuCase" to={{ pathname: '/sendCrypto', state: props.location.state }}> <img className="MenuIcon" src={menuIcoins['./money.png']} alt="Send icon"></img>Отправить</Link>
                 </div>
                 <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./settings.png']} alt="Settings icon"></img>
-                        Настройки</a>
+                    <Link className="MenuCase" to={{ pathname: '/coins', state: props.location.state }}> <img className="MenuIcon" src={menuIcoins['./cryptocurrencies.png']} alt="Token icon"></img>Токены</Link>
                 </div>
                 <div className="MenuCaseItem">
-                    <Link className="MenuCase" to={{ pathname: '/menu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Buy icon"></img>Аккаунт</Link>
+                    <Link className="MenuCase" to={{ pathname: '/accountMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Account icon"></img>Аккаунт</Link>
                 </div>
                 <div className="MenuCaseItem">
                     <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./question.png']} alt="Support icon"></img>
@@ -250,9 +234,9 @@ function SellCrypto(props) {
                                     ))}
                                 </select>
                                 <br />
-                                <input type="number" placeholder="Введите сумму" value={quantityForSell} onChange={handleQuantityChange} />
+                                <input className='sellInput' type="number" placeholder="Введите сумму" value={quantityForSell} onChange={handleQuantityChange} />
                                 <br />
-                                <h4 onClick={handleSellAll}>max: {quantityMaxCoin ? quantityMaxCoin.toFixed(5) : 0}</h4>
+                                <h4 onClick={handleSellAll}>max: {quantityMaxCoin ? quantityMaxCoin : 0}</h4>
                                 <img className='usdtIcon' src={iconSecond} alt="coin" />
                             </div>
                             <div className='ratePanel'>

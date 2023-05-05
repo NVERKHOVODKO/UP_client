@@ -20,6 +20,7 @@ import withdrawHistory from './components/withdrawHistory/WithdrawHistory.jsx';
 import transactionsHistory from './components/transactionsHistory/TransactionsHistory.jsx';
 import coinTable from './components/coinTable/CoinTable.jsx';
 import sellCrypto from './components/screens/sellCrypto/SellCrypto.jsx';
+import adminMenu from './components/screens/adminMenu/AdminMenu.jsx';
 
 
 
@@ -48,6 +49,7 @@ class App extends Component {
           <Route path="/transactionsHistory" component={transactionsHistory} />
           <Route path="/coinTable" component={coinTable} />
           <Route path="/sellCrypto" component={sellCrypto} />
+          <Route path="/adminMenu" component={adminMenu} />
         </Switch>
       </Router>
     )

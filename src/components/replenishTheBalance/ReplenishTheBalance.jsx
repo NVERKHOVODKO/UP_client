@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 function ReplenishTheBalance({ id }) {
     const [quantityUsd, setQuantity] = useState();
     const [userId] = useState(id);
-    const [errorMessage, setErrorMsg] = useState('-----');
+    const [errorMessage, setErrorMsg] = useState('_______________________________________________');
 
 
     function handleReplanish(event) {
@@ -30,10 +30,10 @@ function ReplenishTheBalance({ id }) {
 
     return (
         <div className='replanish'>
-            <div className='inputForm'>
+            <div className='inputReplanishForm'>
                 <input type="number" placeholder="Введите сумму" value={quantityUsd} onChange={(event) => setQuantity(event.target.value)} />
                 <h3 className="errorText">{errorMessage}</h3>
-                <button onClick={handleReplanish}>Пополнить баланс</button>
+                <button className='btnEdit' onClick={handleReplanish}>Пополнить баланс</button>
             </div>
         </div>
     );

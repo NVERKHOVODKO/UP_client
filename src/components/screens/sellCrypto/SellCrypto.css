@@ -1,9 +1,13 @@
-.withdrawDataPanel{
-    height: 200px;
-    background-color: #191b23;
-    border-radius: 10px;
-    padding: 20px;
-    position: relative;
-    display: flex;
+.withdrawDataPanel {
+  height: 200px;
+  background-color: #191b23;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  display: flex;
   flex-direction: column;
+}
+
+.sellInput {
+  width: 350px;
 }

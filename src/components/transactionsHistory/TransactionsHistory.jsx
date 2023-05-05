@@ -6,7 +6,7 @@ function TransactionsHistory({ id }) {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        axios.get("https://localhost:7157/Transaction/getUserDepositHistory?id=" + id)
+        axios.get("https://localhost:7157/Transaction/getUserTransactionsHistory?userId=" + id)
             .then(response => {
                 setData(response.data);
             })
@@ -35,27 +35,34 @@ function TransactionsHistory({ id }) {
         };
         return date.toLocaleDateString('ru-RU', options);
     }
-
+    
     return (
         <div className='transactionsHistoryPanel'>
-            <div className='recievedHistoryPanel'>
                 {data ? (
                     <table className="tableCoins1">
                         <thead>
                             <tr className='tableHead'>
-                                <th>id</th>
-                                <th>date</th>
+                                <th>coinIcon</th>
+                                <th>coinName</th>
                                 <th>quantity</th>
-                                <th>commission</th>
+                                <th>date</th>
+                                <th>senderId</th>
+                                <th>receiverId</th>
+                                <th>Статус</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map(deposit => (
-                                <tr key={deposit.id}>
-                                    <td>{deposit.id}</td>
-                                    <td>{formatDate(deposit.date)}</td>
-                                    <td>{deposit.quantity + ' $'}</td>
-                                    <td>{deposit.commission + ' $'}</td>
+                            {data.map(transaction => (
+                                <tr key={transaction.id}>
+                                    <td>
+                                        <img className="coinIcon" src={coinIcoins['./' + transaction.coinName + '.png']} alt="icon" />
+                                    </td>
+                                    <td>{transaction.coinName}</td>
+                                    <td>{transaction.quantity}</td>
+                                    <td>{transaction.date}</td>
+                                    <td>{transaction.senderId}</td>
+                                    <td>{transaction.receiverId}</td>
+                                    <td className={transaction.senderId === id ? "received" : "sent"}>{transaction.senderId === id ? "Получено" : "Отправлено"}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -64,33 +71,6 @@ function TransactionsHistory({ id }) {
                     <p>Loading...</p>
                 )} 
             </div>
-            <div className='sendedHistoryPanel'>
-                {data ? (
-                    <table className="tableCoins1">
-                        <thead>
-                            <tr className='tableHead'>
-                                <th>id</th>
-                                <th>date</th>
-                                <th>quantity</th>
-                                <th>commission</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map(deposit => (
-                                <tr key={deposit.id}>
-                                    <td>{deposit.id}</td>
-                                    <td>{formatDate(deposit.date)}</td>
-                                    <td>{deposit.quantity + ' $'}</td>
-                                    <td>{deposit.commission + ' $'}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <p>Loading...</p>
-                )}
-            </div>
-        </div>
     );
 }
 

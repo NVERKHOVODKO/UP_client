@@ -116,7 +116,20 @@ function BuyCryptoForm(props) {
     }
 
     const handleQuantityChange = (event) => {
-        setQuantity(event.target.value)
+        setQuantity(event.target.value);
+        getCoinQuantity(event.target.value);
+    }
+
+    const getCoinQuantity = (quantityCoin) => {
+        axios
+        .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${coinName}&quantityUSD=${quantityCoin}`)
+        .then((response) => {
+            setCoinFinalQuantity(response.data);
+        })
+        .catch((error) => {
+            setCoinFinalQuantity('?');
+            console.log(error);
+        });
     }
 
     const [isMasked, setIsMasked] = useState(false);
@@ -239,7 +252,7 @@ function BuyCryptoForm(props) {
                 <div className="panel">
                     <div className="buy-crypto-form">
                         <h1 className='mainLbl'>
-                            Buy crypto
+                            Купить
                         </h1>
                         <form onSubmit={handleSubmit}>
                             <div className='sumPanel'>

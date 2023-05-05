@@ -1,5 +1,92 @@
-.inputForm{
+.inputFormLogin {
     display: flex;
     flex-direction: column;
     padding: 30px;
+    background-color: #191b23;
+    border-radius: 20px;
+    width: 390px;
+}
+
+.inputFormPassword {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #191b23;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.inputFormEmail {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #191b23;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.inputForm {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #191b23;
+    border-radius: 10px;
+    width: 350px;
+}
+
+
+.btnEdit:hover {
+    background-color: #191b20;
+    color: rgb(72, 153, 193);
+}
+
+
+.btnEdit1 {
+    height: 40px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+    width: 256px !important;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.btnEdit {
+    height: 70px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 25px;
+    border-radius: 5px;
+    width: 356px !important;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.replanish {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.inputField4 {
+    margin: 10px;
+    background-color: #11131a;
+    border: 2px solid rgb(72, 153, 193);
+    border-radius: 10px;
+    font-size: 20px;
+    height: 40px;
+    width: 250px !important;
+}
+
+.inputField4:hover,
+.inputField4:focus {
+    border: 2px solid rgb(255, 247, 0) !important;
+}
+
+.editPanel{
+    padding: 10px;
 }

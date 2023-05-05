@@ -72,7 +72,7 @@ function LoginHistoryTable({ id }) {
                                 <td>{coin.fullName}</td>
                                 <td>{coin.shortName}</td>
                                 <td>{(coin.price) + '$'}</td>
-                                <td>{coin.quantity.toFixed(4)}</td>
+                                <td>{coin.quantity.toFixed(10)}</td>
                                 <td>{formatNumber(coin.dailyVolume)}</td>
                                 <td style={{ color: coin.dailyImpact < 0 ? 'red' : 'green' }}>{priceImpact(coin.dailyImpact)}</td>
                                 <td style={{ color: coin.percentagePriceChangePerDay < 0 ? 'red' : 'green' }}>

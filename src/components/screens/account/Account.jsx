@@ -1,12 +1,8 @@
 import './Account.css';
-import usdtIcon from '../../../assets/images/cryptoicons_png/64/usdt.png';
 import mainIcon from '../../../assets/images/UP_cryptowallet.png';
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import NavBar from '../../navBar/NavBar.jsx';
-import accountIcon from '../../../assets/images/businessman.png';
 import upIcon from '../../../assets/images/UP_crypto.png';
 import LoginHistoryTable from '../../../components/loginHistoryTable/LoginHistoryTable';
 import ReplenishTheBalance from '../../../components/replenishTheBalance/ReplenishTheBalance';
@@ -52,18 +48,6 @@ function BuyCryptoForm(props) {
         r.keys().forEach((key) => (menuIcoins[key] = r(key)));
     }
     importAllMenuIcons(require.context("../../../assets/images/standart_menu_icons", false, /\.(png|jpe?g|svg)$/));
-    /* 
-        useEffect(() => {
-            axios.get("https://localhost:7157/User/getUserLoginHistory?id=" + id)
-                .then(response => {
-                    setData(response.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }, []); */
-
-    //const handleBtnEditClick
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -160,10 +144,6 @@ function BuyCryptoForm(props) {
                     <Link className="MenuCase" to={{ pathname: '/accountMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Account icon"></img>Аккаунт</Link>
                 </div>
                 <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./question.png']} alt="Support icon"></img>
-                        Поддержка</a>
-                </div>
-                <div className="MenuCaseItem">
                     <Link className="MenuCase" to={{ pathname: '/', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./power-off.png']}
                         alt="Exit icon"></img>Выход</Link>
                 </div>
@@ -171,20 +151,15 @@ function BuyCryptoForm(props) {
             <div className="accountPanel">
                 <div className='accountHeadPanel'>
                     <div className='mainUserPanel'>
-                        <div className='accountPhoto'>
-                            <img className="accountIcon" src={accountIcon} alt="Account icon"></img>
+                        <div className='upId'>
+                            {/* <img className="accountIcon" src={accountIcon} alt="Account icon"></img> */}
                             <div className='loginPlace'>
-                                <h2 className='loginLblMenu'>{login}</h2>
+                                <h2>
+                                    UP-ID: {id}
+                                </h2>
                             </div>
+                            <button className='btnCopyId' onClick={copyToClipboard}>Копировать  ваш UP-ID</button>
                         </div>
-                    </div>
-                    <div className='upId'>
-                        <div className='upIdLbl'>
-                            <h2>
-                                UP-ID: {id}
-                            </h2>
-                        </div>
-                        <button className='btnCopyId' onClick={copyToClipboard}>Копировать  ваш UP-ID</button>
                     </div>
                     <div className='upIcon'>
                         <img className='upIconImage' src={upIcon} alt="Account icon"></img>

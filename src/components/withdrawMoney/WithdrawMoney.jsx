@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 function WithdrawMoney({ id }) {
     const [quantityForWithdraw, setQuantity] = useState();
     const [userId] = useState(id);
-    const [errorMessage, setErrorMsg] = useState('-----');
+    const [errorMessage, setErrorMsg] = useState('_______________________________________________');
 
     function handleReplanish(event) {
         if (quantityForWithdraw != null) {
@@ -29,10 +29,10 @@ function WithdrawMoney({ id }) {
 
     return (
         <div className='replanish'>
-            <div className='inputForm'>
+            <div className='inputWithdrawForm'>
                 <input type="number" placeholder="Введите сумму" value={quantityForWithdraw} onChange={(event) => setQuantity(event.target.value)} />
                 <h3 className="errorText">{errorMessage}</h3>
-                <button onClick={handleReplanish}>Вывести</button>
+                <button className='btnEdit' onClick={handleReplanish}>Вывести</button>
             </div>
         </div>
     );

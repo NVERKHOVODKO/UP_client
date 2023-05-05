@@ -1,0 +1,15 @@
+.inputReplanishForm{
+    background-color: #191b20;
+    width: 380px;
+    height: 200px;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.inputWithdrawForm{
+    height: 200px;
+    width: 380px;
+    border-radius: 20px;
+    padding: 30px;
+    background-color: #191b20;
+}

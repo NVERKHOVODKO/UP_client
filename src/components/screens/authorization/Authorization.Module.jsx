@@ -33,7 +33,11 @@ function LoginPage() {
             roleId: user.roleId,
             salt: user.salt,
           };
-          history.push('/menu', userParams);
+          if(user.roleId == 1){
+            history.push('/menu', userParams);
+          }else if(user.roleId == 2){
+            history.push('/admin', userParams);
+          }
         }
       })
       .catch(error => {
