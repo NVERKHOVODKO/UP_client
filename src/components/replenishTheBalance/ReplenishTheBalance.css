@@ -1,5 +1,5 @@
 .inputReplanishForm{
-    background-color: #191b20;
+    background-color: #11131a;
     width: 380px;
     height: 200px;
     padding: 30px;
@@ -12,4 +12,27 @@
     border-radius: 20px;
     padding: 30px;
     background-color: #191b20;
+}
+
+.inputReplanish{
+    width: 360px;
+    font-size: 30px;
+    background-color: #11131a;
+}
+
+.btnReplanish {
+    height: 70px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 25px;
+    border-radius: 5px;
+    width: 366px !important;
+    margin-top: 10px;
+    margin-left: 0px;
+}
+
+.btnReplanish:hover {
+    background-color: #212739;
+    color: rgb(72, 153, 193);
 }

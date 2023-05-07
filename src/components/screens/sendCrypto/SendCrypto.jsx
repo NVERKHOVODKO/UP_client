@@ -67,6 +67,7 @@ function BuyCryptoForm(props) {
         if (selectedCoin) {
             setCoinName(selectedCoin.value.toLowerCase());
             setIconFinal(coinIcoins['./' + event.target.value.toLowerCase() + '.png'])
+            getCoinQuantityInUserWallet(event.target.value.toLowerCase());
         }
     }
 
@@ -119,6 +120,24 @@ function BuyCryptoForm(props) {
     importAllCoinsIcons(require.context("../../../assets/images/cryptoicons_png/128", false, /\.(png|jpe?g|svg)$/));
 
     const [iconSecond, setIconFinal] = useState(coinIcoins['./' + coinName + '.png']);
+    const [quantityMaxCoin, setCoinMaxQuantity] = useState();
+
+    const handleMaxLblClick = (event) => {
+        console.log("quantityMaxCoin: " + quantityMaxCoin);
+        setCoinMaxQuantity(quantityMaxCoin);
+    }
+
+    const getCoinQuantityInUserWallet = (coin) => {
+        console.log("userId: " + id + "\ncoinName: " + coin);
+        axios
+            .get("https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" + id + "&coinName=" + coin)
+            .then((response) => {
+                setCoinMaxQuantity(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
         <div className="container">
@@ -196,6 +215,9 @@ function BuyCryptoForm(props) {
                                 <label>
                                     <img className='usdtIcon' src={iconSecond} alt="coin" />
                                     <input type="number" placeholder="Введите сумму" onChange={handleQuantityChange} />
+                                    <br />
+                                    <br />
+                                    <h4 onClick={handleMaxLblClick}>max: {quantityMaxCoin ? quantityMaxCoin : 0}</h4>
                                 </label>
                             </div>
                             <br />

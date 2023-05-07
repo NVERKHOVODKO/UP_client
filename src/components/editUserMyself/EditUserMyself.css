@@ -1,28 +1,27 @@
 .inputFormLogin {
     display: flex;
-    flex-direction: column;
-    padding: 30px;
-    background-color: #191b23;
-    border-radius: 20px;
-    width: 390px;
+    flex-direction: row;
+    padding: 10px;
+    width: 750px;
 }
 
 .inputFormPassword {
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    background-color: #191b23;
-    border-radius: 10px;
-    width: 350px;
+    padding: 10px;
+    width: 750px;
 }
 
 .inputFormEmail {
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    background-color: #191b23;
-    border-radius: 10px;
-    width: 350px;
+    padding: 10px;
+    width: 750px;
+}
+
+.passwordContainer {
+    display: flex;
+    justify-content: column;
 }
 
 .inputForm {
@@ -35,20 +34,35 @@
 }
 
 
-.btnEdit:hover {
+.btnEdit5:hover,
+.btnEditEmail:hover, 
+.btnEditLogin:hover,
+.btnEditPassword:hover {
     background-color: #191b20;
     color: rgb(72, 153, 193);
 }
 
 
 .btnEdit1 {
-    height: 40px;
+    height: 50px;
     border: none;
     background-color: rgb(72, 153, 193);
     color: black;
     font-size: 20px;
     border-radius: 5px;
-    width: 256px !important;
+    width: 210px !important;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.btnEdit5 {
+    height: 50px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+    width: 210px !important;
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -87,6 +101,85 @@
     border: 2px solid rgb(255, 247, 0) !important;
 }
 
-.editPanel{
+.editPanel {
     padding: 10px;
+    height: 663px;
+}
+
+
+.editOperationLbl {
+    margin-left: 10px;
+}
+
+.personalDataLbl{
+    text-align: center;
+}
+
+.inputFieldEdit {
+    margin: 10px;
+    background-color: #11131a;
+    border: 2px solid rgb(72, 153, 193);
+    border-radius: 10px;
+    font-size: 20px;
+    height: 40px;
+    width: 300px !important;
+}
+
+.inputFieldEdit:hover,
+.inputFieldEdit:focus {
+    border: 2px solid rgb(255, 247, 0) !important;
+}
+
+.inputPasswords {
+    display: flex;
+    flex-direction: column;
+}
+
+.btnEditLogin {
+    height: 50px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+    width: 210px !important;
+    margin-top: 68px;
+    margin-left: 110px;
+}
+
+.btnEditPassword {
+    height: 50px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+    width: 210px !important;
+    margin-top: 5px;
+    margin-left: 110px;
+}
+
+.emailContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.btnEditEmail{
+    height: 50px;
+    border: none;
+    background-color: rgb(72, 153, 193);
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+    width: 210px !important;
+    margin-left: 110px;
+}
+
+.editContainer{
+    margin-top: -20px;
+    margin-left: 240px;
+}
+
+.errorLbl{
+    text-align: center;
 }

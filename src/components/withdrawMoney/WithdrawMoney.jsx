@@ -29,10 +29,15 @@ function WithdrawMoney({ id }) {
 
     return (
         <div className='replanish'>
-            <div className='inputWithdrawForm'>
-                <input type="number" placeholder="Введите сумму" value={quantityForWithdraw} onChange={(event) => setQuantity(event.target.value)} />
+            <div className='inputReplanishForm'>
+                <input className='inputReplanish' type="number" placeholder="Введите сумму" value={quantityForWithdraw} onChange={(event) => setQuantity(event.target.value)} />
                 <h3 className="errorText">{errorMessage}</h3>
-                <button className='btnEdit' onClick={handleReplanish}>Вывести</button>
+                <div>
+                    <h3>
+                    Вывод без коммиссии
+                    </h3>
+                </div>
+                <button className='btnReplanish' onClick={handleReplanish}>Вывести</button>
             </div>
         </div>
     );

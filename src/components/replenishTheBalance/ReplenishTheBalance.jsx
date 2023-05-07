@@ -27,13 +27,29 @@ function ReplenishTheBalance({ id }) {
             setErrorMsg("Введите количество");
         }
     }
+    const [commission, setCommission] = useState('0');
+
+    function getCommission(quantity){
+        setCommission(quantity*0.02)
+    }
+
+    const handleInputChange = (event) =>{
+        setQuantity(event.target.value)
+        getCommission(event.target.value)
+    }
 
     return (
         <div className='replanish'>
             <div className='inputReplanishForm'>
-                <input type="number" placeholder="Введите сумму" value={quantityUsd} onChange={(event) => setQuantity(event.target.value)} />
+                <input className='inputReplanish' type="number" placeholder="Введите сумму" value={quantityUsd} onChange={handleInputChange} />
                 <h3 className="errorText">{errorMessage}</h3>
-                <button className='btnEdit' onClick={handleReplanish}>Пополнить баланс</button>
+                <div>
+                Коммиссия составит ~ {commission >= 0 ? (commission) : '?'} USDT
+                </div>
+                <div>
+                    Вы получите ~ {(quantityUsd - commission) >= 0 ? (quantityUsd - commission) : '?'} USDT
+                </div>
+                <button className='btnReplanish' onClick={handleReplanish}>Пополнить баланс</button>
             </div>
         </div>
     );

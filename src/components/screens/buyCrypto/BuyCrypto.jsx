@@ -100,8 +100,13 @@ function BuyCryptoForm(props) {
     const [coinName, setCoinName] = useState('btc');
 
     function handleBuy(event) {
-        setText('Загрузка...');
         event.preventDefault();
+
+        if (!userId || !coinName || !quantity) {
+            setText("Введите количество");
+            return;
+        }
+        setText('Загрузка...');
         axios.post('https://localhost:7157/Transaction/buyCrypto', { userId, coinName, quantity })
             .then(response => {
                 console.log("Coinname: " + coinName);
@@ -122,14 +127,14 @@ function BuyCryptoForm(props) {
 
     const getCoinQuantity = (quantityCoin) => {
         axios
-        .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${coinName}&quantityUSD=${quantityCoin}`)
-        .then((response) => {
-            setCoinFinalQuantity(response.data);
-        })
-        .catch((error) => {
-            setCoinFinalQuantity('?');
-            console.log(error);
-        });
+            .get(`https://localhost:7157/Transaction/getCoinQuantity?coinName=${coinName}&quantityUSD=${quantityCoin}`)
+            .then((response) => {
+                setCoinFinalQuantity(response.data);
+            })
+            .catch((error) => {
+                setCoinFinalQuantity('?');
+                console.log(error);
+            });
     }
 
     const [isMasked, setIsMasked] = useState(false);
@@ -272,7 +277,7 @@ function BuyCryptoForm(props) {
                                     Получить:
                                     <br />
                                     <br />
-                                    <select className="selectInput" onChange={handleTokenChange}>
+                                    <select className='tokenSelect' onChange={handleTokenChange}>
                                         {coins.map((coin) => (
                                             <option key={coin.value} value={coin.value}>
                                                 {coin.label}

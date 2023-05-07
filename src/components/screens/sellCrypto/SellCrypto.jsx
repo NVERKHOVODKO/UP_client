@@ -89,9 +89,40 @@ function SellCrypto(props) {
     }
 
     const handleQuantityChange = (event) => {
-        //setQuantity(event.target.value);
-        handleConvert(event.target.value);
+        /* if (event.target.value == 0) {
+            setText("Введите количество");
+            setQuantity();
+            return;
+        } */
+        setQuantity(event.target.value);
+        handleConvertByInputChange(event.target.value);
     }
+
+
+    const handleConvertByInputChange = (quantity) => {
+        if (quantity === "" || quantity === null) {
+            
+            setCoinFinalQuantity('?');
+            return;
+        }
+
+        if (coinName === "" || coinName === null) {
+            
+            setCoinFinalQuantity('?');
+            return;
+        }
+
+        console.log("shortNameStart: " + coinName + "\nquantity: " + quantity + "\nuserId: " + userId + "\nshortNameFinal=usdt");
+        axios.get('https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=' + coinName + '&shortNameFinal=usdt&quantity=' + quantity + '&userId=' + id)
+            .then(response => {
+                console.log(response);
+                setCoinFinalQuantity(response.data);
+            })
+            .catch(error => {
+                setText(error.response.data);
+                console.log(error);
+            });
+    };
 
     const [isMasked, setIsMasked] = useState(false);
 
@@ -119,8 +150,10 @@ function SellCrypto(props) {
     const handleSellAll = (event) => {
         console.log("quantityMaxCoin: " + quantityMaxCoin);
         setQuantity(quantityMaxCoin);
-        handleConvert(event);
+        handleConvertByInputChange(quantityMaxCoin);
     }
+
+    
 
     const coinIcoins = {};
     function importAllCoinsIcons(r) {
@@ -145,10 +178,17 @@ function SellCrypto(props) {
 
 
     const handleConvert = (coin) => {
-        /* if (quantity === "" || quantity === null) {
-            //setQuantity(0);
+        if (quantityForSell === "" || quantityForSell === null) {
+            
+            setCoinFinalQuantity('?');
             return;
-        } */
+        }
+
+        if (coin === "" || coin === null) {
+            
+            setCoinFinalQuantity('?');
+            return;
+        }
 
         console.log("shortNameStart: " + coin + "\nquantity: " + quantityForSell + "\nuserId: " + userId + "\nshortNameFinal=usdt");
         axios.get('https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=' + coin + '&shortNameFinal=usdt&quantity=' + quantityForSell + '&userId=' + id)

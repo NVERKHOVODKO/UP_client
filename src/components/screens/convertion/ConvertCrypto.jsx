@@ -61,6 +61,7 @@ function BuyCryptoForm(props) {
     const handleStartTokenChange = (event) => {
         const selectedCoin = coins.find((coin) => coin.value === event.target.value);
         if (selectedCoin) {
+            GetConvertQuantityWithFirstCoin(selectedCoin.value.toLowerCase());
             setShortNameStart(selectedCoin.value.toLowerCase());
             setIconStart(coinIcoins['./' + selectedCoin.value.toLowerCase() + '.png']);
             fetchCoinQuantity(selectedCoin.value.toLowerCase());
@@ -123,6 +124,19 @@ function BuyCryptoForm(props) {
     function GetConvertQuantity(secondCoin) {
         setQuantityCoinConvertText('Загрузка...');
         axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + shortNameStart + "&shortNameFinal=" + secondCoin + "&quantity=" + quantity + "&userId=" + id)
+                .then(response => {
+                    console.log(data);
+                    setQuantityCoinConvertText(response.data);
+                })
+                .catch(error => {
+                    setQuantityCoinConvertText('?');
+                    console.log(error);
+                });
+    }
+
+    function GetConvertQuantityWithFirstCoin(firstCoin) {
+        setQuantityCoinConvertText('Загрузка...');
+        axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + firstCoin + "&shortNameFinal=" + shortNameFinal + "&quantity=" + quantity + "&userId=" + id)
                 .then(response => {
                     console.log(data);
                     setQuantityCoinConvertText(response.data);

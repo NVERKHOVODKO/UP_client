@@ -33,6 +33,11 @@ function LoginHistoryTable({id}) {
 
     return (
         <div className='tableLoginHistory'>
+            <div>
+                <h3 className='alertMessage'>
+                    Если вы заметили подозрительную активность - смените пароль и свяжитесь с техподдержкой
+                </h3>
+            </div>
             {data ? (
                 <table className="tableCoins">
                     <thead>

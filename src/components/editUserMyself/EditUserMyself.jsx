@@ -7,9 +7,7 @@ function EditUserMyself({ id }) {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [email, setEmail] = useState('');
-    const [errorMessageLogin, setErrorMsgLogin] = useState('___________________________________');
-    const [errorMessagePassword, setErrorMsgPassword] = useState('___________________________________');
-    const [errorMessageEmail, setErrorMsgEmail] = useState('___________________________________');
+    const [errorMessage, setErrorMsg] = useState('_________________________________________________________________________________________________________________________________________________________________');
 
 
     /* function handleEdit(event) {
@@ -31,25 +29,26 @@ function EditUserMyself({ id }) {
         event.preventDefault();
         axios.put('https://localhost:7157/User/editUserLogin', { id, login })
             .then(response => {
-                setErrorMsgLogin(response.data);
+                setErrorMsg(response.data);
                 console.log(response.data);
             })
             .catch(error => {
-                setErrorMsgLogin(error.response.data);
+                setErrorMsg(error.response.data);
                 console.error(error);
             });
     }
+
 
     function handleEditPassword(event) {
         console.log("id: " + id + "\nPassword: " + password + "\nPasswordRepeat: " + passwordRepeat);
         event.preventDefault();
         axios.put('https://localhost:7157/User/editUserPassword', { id, password, passwordRepeat })
             .then(response => {
-                setErrorMsgPassword(response.data);
+                setErrorMsg(response.data);
                 console.log(response.data);
             })
             .catch(error => {
-                setErrorMsgPassword(error.response.data);
+                setErrorMsg(error.response.data);
                 console.error(error);
             });
     }
@@ -59,32 +58,64 @@ function EditUserMyself({ id }) {
         event.preventDefault();
         axios.put('https://localhost:7157/User/editUserEmail', { id, email })
             .then(response => {
-                setErrorMsgEmail(response.data);
+                setErrorMsg(response.data);
                 console.log(response.data);
             })
             .catch(error => {
-                setErrorMsgEmail(error.response.data);
+                setErrorMsg(error.response.data);
                 console.error(error);
             });
     }
 
     return (
         <div className='editPanel'>
-            <div className='inputFormLogin'>
-                <input className='inputField4' type="text" placeholder="Введите логин" value={login} onChange={(event) => setLogin(event.target.value)} />
-                <h3 className="errorText">{errorMessageLogin}</h3>
-                <button className='btnEdit1' onClick={handleEditLogin}>Изменить логин</button>
+            <h2 className='personalDataLbl'>
+                Персональные данные
+            </h2>
+            <div className='errorLbl'>
+                <h3 className="errorText">{errorMessage}</h3>
             </div>
-            <div className='inputFormPassword'>
-                <input className='inputField4' type="text" placeholder="Введите пароль" value={password} onChange={(event) => setPassword(event.target.value)} />
-                <input className='inputField4' type="text" placeholder="Повторите пароль" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} />
-                <h3 className="errorText">{errorMessagePassword}</h3>
-                <button className='btnEdit1' onClick={handleEditPassword}>Изменить пароль</button>
-            </div>
-            <div className='inputFormEmail'>
-                <input className='inputField4' type="text" placeholder="Введите email" value={email} onChange={(event) => setEmail(event.target.value)} />
-                <h3 className="errorText">{errorMessageEmail}</h3>
-                <button className='btnEdit1' onClick={handleEditEmail}>Изменить email</button>
+            <div className='editContainer'>
+                <div className='inputFormLogin'>
+                    <div>
+                        <div className='editOperationLbl'>
+                            <h3>
+                                Редактировать имя пользователя
+                            </h3>
+                        </div>
+                        <input className='inputFieldEdit' type="text" placeholder="Введите логин" value={login} onChange={(event) => setLogin(event.target.value)} />
+                    </div>
+                    <div>
+                        <button className='btnEditLogin' onClick={handleEditLogin}>Изменить логин</button>
+                    </div>
+                </div>
+                <div className='inputFormPassword'>
+                    <div className='editOperationLbl'>
+                        <h3>
+                            Изменить пароль
+                        </h3>
+                    </div>
+                    <div className='passwordContainer'>
+                        <div className='inputPasswords'>
+                            <input className='inputFieldEdit' type="text" placeholder="Введите пароль" value={password} onChange={(event) => setPassword(event.target.value)} />
+                            <input className='inputFieldEdit' type="text" placeholder="Повторите пароль" value={passwordRepeat} onChange={(event) => setPasswordRepeat(event.target.value)} />
+                        </div>
+                        <div>
+                            <button className='btnEditPassword' onClick={handleEditPassword}>Изменить пароль</button>
+                        </div>
+                    </div>
+                </div>
+                <div className='inputFormEmail'>
+                    <div className='editOperationLbl'>
+                        <h3>
+                            Изменить Email
+                        </h3>
+                    </div>
+                    <div>
+                        <input className='inputFieldEdit' type="text" placeholder="Введите email" value={email} onChange={(event) => setEmail(event.target.value)} />
+                        <button className='btnEditEmail' onClick={handleEditEmail}>Изменить email</button>
+                    </div>
+                </div>
             </div>
         </div>
     );
