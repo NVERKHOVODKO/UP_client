@@ -1,6 +1,15 @@
 .tableWithdrawals {
     border-collapse: collapse;
-    width: 450px;
+    width: 350px;
     font-size: 14px;
     text-align: left;
+    margin-left: 400px;
 }
+
+.tableWithdrawals thead {
+    position: sticky;
+    top: 0;
+    background-color: #fff; /* задаем фон шапки */
+    z-index: 1; /* задаем z-index для отображения поверх контента */
+  }
+  

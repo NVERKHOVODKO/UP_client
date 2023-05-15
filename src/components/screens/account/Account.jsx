@@ -88,15 +88,15 @@ function BuyCryptoForm(props) {
     const renderComponent = () => {
         switch (selectedComponent) {
             case 'loginHistory':
-                return <LoginHistoryTable id={id} />;
+                return <LoginHistoryTable id={1} />;
             case 'replenishBalance':
-                return <ReplenishTheBalance id={id} />;
+                return <ReplenishTheBalance id={1} />;
             case 'withdrawMoney':
-                return <WithdrawMoney id={id} />;
+                return <WithdrawMoney id={1} />;
             case 'editUserMyself':
-                return <EditUserMyself id={id} />;
+                return <EditUserMyself id={1} />;
             default:
-                return <EditUserMyself id={id} />;
+                return <EditUserMyself id={23} />;
         }
     }
 
@@ -129,7 +129,7 @@ function BuyCryptoForm(props) {
                     <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
                 </div>
                 <div className="MenuCaseItem">
-                    <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Продать</Link>
+                    <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./sell.png']} alt="Buy icon"></img>Продать</Link>
                 </div>
                 <div className="MenuCaseItem">
                     <Link className="MenuCase" to={{ pathname: '/historyMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./stake.png']} alt="Sell icon"></img>История</Link>
@@ -152,7 +152,6 @@ function BuyCryptoForm(props) {
                 <div className='accountHeadPanel'>
                     <div className='mainUserPanel'>
                         <div className='upId'>
-                            {/* <img className="accountIcon" src={accountIcon} alt="Account icon"></img> */}
                             <div className='loginPlace'>
                                 <h2>
                                     UP-ID: {id}
@@ -161,7 +160,7 @@ function BuyCryptoForm(props) {
                             <button className='btnCopyId' onClick={copyToClipboard}>Копировать  ваш UP-ID</button>
                         </div>
                     </div>
-                    <div className='upIcon'>
+                    <div className='upCruptoIcon'>
                         <img className='upIconImage' src={upIcon} alt="Account icon"></img>
                     </div>
                 </div>

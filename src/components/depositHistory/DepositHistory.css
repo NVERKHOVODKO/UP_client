@@ -3,6 +3,7 @@
     width: 450px;
     font-size: 14px;
     text-align: left;
+    margin-left: 380px;
 }
 
 th.id,
@@ -33,3 +34,11 @@ th.date
     font-weight: bold;
     background-color: #11131a;
 }
+
+.tableReplenisment thead {
+    position: sticky;
+    top: 0;
+    background-color: #fff; /* задаем фон шапки */
+    z-index: 1; /* задаем z-index для отображения поверх контента */
+  }
+  

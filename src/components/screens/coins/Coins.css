@@ -130,3 +130,8 @@ tr:nth-child(even) {
 .coinListPanel {
     height: 750px;
 }
+
+.coinListFull{
+    height: 605px;
+    overflow-y: scroll;
+}

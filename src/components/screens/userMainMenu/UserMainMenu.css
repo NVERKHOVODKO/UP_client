@@ -9,13 +9,13 @@
   text-align: center;
   float: left;
   width: 250px;
-  height: 754px;
+  height: 745px !important;
 }
 
 .coinList {
   background-color: #11131a;
   width: 1300px;
-  height: 745px;
+  height: 744px !important;
 }
 
 .loginLbl {

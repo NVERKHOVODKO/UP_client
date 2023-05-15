@@ -168,7 +168,7 @@ function BuyCryptoForm(props) {
                     <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
                 </div>
                 <div className="MenuCaseItem">
-                    <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Продать</Link>
+                    <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./sell.png']} alt="Buy icon"></img>Продать</Link>
                 </div>
                 <div className="MenuCaseItem">
                     <Link className="MenuCase" to={{ pathname: '/historyMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./stake.png']} alt="Sell icon"></img>История</Link>
@@ -183,10 +183,6 @@ function BuyCryptoForm(props) {
                     <Link className="MenuCase" to={{ pathname: '/accountMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Account icon"></img>Аккаунт</Link>
                 </div>
                 <div className="MenuCaseItem">
-                    <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./question.png']} alt="Support icon"></img>
-                        Поддержка</a>
-                </div>
-                <div className="MenuCaseItem">
                     <Link className="MenuCase" to={{ pathname: '/', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./power-off.png']}
                         alt="Exit icon"></img>Выход</Link>
                 </div>
@@ -195,7 +191,7 @@ function BuyCryptoForm(props) {
                 <div className="panel">
                     <div className="buy-crypto-form">
                         <h1 className='mainLbl'>
-                            Send crypto
+                            Отправить криптовалюту
                         </h1>
                         <form onSubmit={handleSubmit}>
                             <div className='firstCoinPanel'>

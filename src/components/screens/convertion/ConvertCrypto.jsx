@@ -124,27 +124,27 @@ function BuyCryptoForm(props) {
     function GetConvertQuantity(secondCoin) {
         setQuantityCoinConvertText('Загрузка...');
         axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + shortNameStart + "&shortNameFinal=" + secondCoin + "&quantity=" + quantity + "&userId=" + id)
-                .then(response => {
-                    console.log(data);
-                    setQuantityCoinConvertText(response.data);
-                })
-                .catch(error => {
-                    setQuantityCoinConvertText('?');
-                    console.log(error);
-                });
+            .then(response => {
+                console.log(data);
+                setQuantityCoinConvertText(response.data);
+            })
+            .catch(error => {
+                setQuantityCoinConvertText('?');
+                console.log(error);
+            });
     }
 
     function GetConvertQuantityWithFirstCoin(firstCoin) {
         setQuantityCoinConvertText('Загрузка...');
         axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + firstCoin + "&shortNameFinal=" + shortNameFinal + "&quantity=" + quantity + "&userId=" + id)
-                .then(response => {
-                    console.log(data);
-                    setQuantityCoinConvertText(response.data);
-                })
-                .catch(error => {
-                    setQuantityCoinConvertText('?');
-                    console.log(error);
-                });
+            .then(response => {
+                console.log(data);
+                setQuantityCoinConvertText(response.data);
+            })
+            .catch(error => {
+                setQuantityCoinConvertText('?');
+                console.log(error);
+            });
     }
 
     const [iconFirst, setIconStart] = useState(coinIcoins['./' + shortNameStart + '.png']);
@@ -199,7 +199,7 @@ function BuyCryptoForm(props) {
                         <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
                     </div>
                     <div className="MenuCaseItem">
-                        <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Продать</Link>
+                        <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./sell.png']} alt="Buy icon"></img>Продать</Link>
                     </div>
                     <div className="MenuCaseItem">
                         <Link className="MenuCase" to={{ pathname: '/historyMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./stake.png']} alt="Sell icon"></img>История</Link>
@@ -212,10 +212,6 @@ function BuyCryptoForm(props) {
                     </div>
                     <div className="MenuCaseItem">
                         <Link className="MenuCase" to={{ pathname: '/accountMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Account icon"></img>Аккаунт</Link>
-                    </div>
-                    <div className="MenuCaseItem">
-                        <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./question.png']} alt="Support icon"></img>
-                            Поддержка</a>
                     </div>
                     <div className="MenuCaseItem">
                         <Link className="MenuCase" to={{ pathname: '/', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./power-off.png']}

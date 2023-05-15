@@ -42,12 +42,12 @@ function TransactionsHistory({ id }) {
                     <table className="tableCoins1">
                         <thead>
                             <tr className='tableHead'>
-                                <th>coinIcon</th>
-                                <th>coinName</th>
-                                <th>quantity</th>
-                                <th>date</th>
-                                <th>senderId</th>
-                                <th>receiverId</th>
+                                <th>Монета</th>
+                                <th>Назв.</th>
+                                <th>Кол-во</th>
+                                <th>Дата</th>
+                                <th>Отправитель</th>
+                                <th>Получатель</th>
                                 <th>Статус</th>
                             </tr>
                         </thead>

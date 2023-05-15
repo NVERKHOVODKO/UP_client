@@ -1,0 +1,17 @@
+.usersTable {
+    width: 100%;
+    text-align: left;
+    color: darkgray;
+}
+
+.modal{
+    width: 100%;
+    height: 300px;
+    background-color: black;
+}
+
+.menuAdmin{
+    width: 100%;
+    height: 200px;
+    background-color: #191b20;
+}

@@ -30,7 +30,7 @@ function WithdrawHistory({ id }) {
     }
 
     return (
-        <div className='depositHistoryPanel'>
+        <div className='withdrawHistoryPanel'>
             {data ? (
                 <table className="tableWithdrawals">
                     <thead>
@@ -38,7 +38,6 @@ function WithdrawHistory({ id }) {
                             <th>№</th>
                             <th>Дата</th>
                             <th>Кол-во</th>
-                            <th>Комиссия</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +46,6 @@ function WithdrawHistory({ id }) {
                                 <td>{withdraw.id}</td>
                                 <td>{formatDate(withdraw.date)}</td>
                                 <td>{withdraw.quantity + ' $'}</td>
-                                <td>{withdraw.commission + ' $'}</td>
                             </tr>
                         ))}
                     </tbody>

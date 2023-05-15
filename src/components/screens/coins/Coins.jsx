@@ -12,14 +12,16 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App(props) {
   const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [balanceData, setBalanceData] = useState(null);
+  const [coinName, setCoinName] = useState('');
   const location = useLocation();
   const response = location.state.response;
   const coinIcoins = {};
   const menuIcoins = {};
   const [isMasked, setIsMasked] = useState(false);
   const maskedBalance = "*********";
+
 
 
   useEffect(() => {
@@ -88,6 +90,19 @@ function App(props) {
     setIsMasked(!isMasked);
   };
 
+  const btnSearchClick = () => {
+
+  }
+
+  const handleTokenNameChange = (event) => {
+    setCoinName(event.target.value);
+  }
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredCoins = data.filter(coin =>
+    coin.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
 
   return (
@@ -119,7 +134,7 @@ function App(props) {
           <Link className="MenuCase" to={{ pathname: '/buyCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Купить</Link>
         </div>
         <div className="MenuCaseItem">
-          <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./credit-card.png']} alt="Buy icon"></img>Продать</Link>
+          <Link className="MenuCase" to={{ pathname: '/sellCrypto', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./sell.png']} alt="Buy icon"></img>Продать</Link>
         </div>
         <div className="MenuCaseItem">
           <Link className="MenuCase" to={{ pathname: '/historyMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./stake.png']} alt="Sell icon"></img>История</Link>
@@ -134,19 +149,17 @@ function App(props) {
           <Link className="MenuCase" to={{ pathname: '/accountMenu', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./user.png']} alt="Account icon"></img>Аккаунт</Link>
         </div>
         <div className="MenuCaseItem">
-          <a className="MenuCase" href="#"> <img className="MenuIcon" src={menuIcoins['./question.png']} alt="Support icon"></img>
-            Поддержка</a>
-        </div>
-        <div className="MenuCaseItem">
           <Link className="MenuCase" to={{ pathname: '/', state: props.location.state }}><img className="MenuIcon" src={menuIcoins['./power-off.png']}
             alt="Exit icon"></img>Выход</Link>
         </div>
       </div>
       <div className='coinListPanel'>
-        <div className='searchPanel'>
-          <input className='inputField1' type="text" placeholder="Введите название монеты" />
+        <div className='searchCoinBar'>
+          <div className='searchPanel'>
+            <input className='inputField1' type="text" placeholder="Введите название монеты" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+          </div>
         </div>
-        <div className="coinList">
+        <div className="coinListFull">
           {data ? (
             <table className="tableCoins">
               <thead>
@@ -161,7 +174,7 @@ function App(props) {
                 </tr>
               </thead>
               <tbody>
-                {data.map(coin => (
+                {filteredCoins.map(coin => (
                   <tr key={coin.id}>
                     <td>
                       <img className="coinIcon" src={coinIcoins['./' + coin.shortName + '.png']} alt="icon" />
