@@ -5,7 +5,7 @@ import LoginHistoryTable from '../../../components/loginHistoryTable/LoginHistor
 
 
 function AdminMenu({ id }) {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [sortColumn, setSortColumn] = useState(null);
     const [sortDirection, setSortDirection] = useState(1);
 
@@ -18,6 +18,7 @@ function AdminMenu({ id }) {
                 console.log(error);
             });
     }, []);
+    
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -82,24 +83,84 @@ function AdminMenu({ id }) {
 
     const [selectedComponent, setSelectedComponent] = useState(null);
     const [selectedUserId, setSelectedUserId] = useState(null);
-    
-    const handleButtonClick = (buttonName, userId) => {
-      setSelectedComponent(buttonName);
-      setSelectedUserId(userId);
-    };
-    
-    const renderComponent = () => {
-      if (selectedComponent === 'loginHistory' && selectedUserId) {
-        return <LoginHistoryTable id={1} />;
-      }
-      return null;
+
+    const handleButtonClick = async (buttonName, userId) => {
+        setSelectedUserId(userId);
+
+        if (selectedComponent === buttonName) {
+            // Если текущий компонент совпадает с нажатой кнопкой, скрываем компонент
+            setSelectedComponent(null);
+            setSelectedUserId(null);
+        } else {
+            // Иначе выбираем новый компонент
+            setSelectedComponent(buttonName);
+            setSelectedUserId(userId);
+        }
     };
 
+    const [searchTerm, setSearchTerm] = useState('');
+
+
+    const renderComponent = () => {
+        if (selectedComponent === 'loginHistory' && selectedUserId) {
+            return <LoginHistoryTable id={selectedUserId} />;
+        }
+        if (selectedComponent === 'loginHistory' && selectedUserId) {
+            return <LoginHistoryTable id={selectedUserId} />;
+        }
+        return null;
+    };
+
+    const filteredUsers = data.filter(user =>
+        user.login.includes(searchTerm.toLowerCase())
+    );
+
+    const setStatusBlock = async (userId, status) => {
+        try {
+            const url = 'https://localhost:7157/Admin/setStatusBlock';
+            const params = {
+                id: userId,
+                status: !status
+            };
+
+            const response = await axios.put(url, null, { params });
+
+            console.log(response.data); // Обработка ответа сервера
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const setStatusDel = async (userId, status) => {
+        try {
+            const url = 'https://localhost:7157/Admin/setStatusDel';
+            const params = {
+                id: userId,
+                status: !status
+            };
+
+            const response = await axios.put(url, null, { params });
+
+            console.log(response.data); // Обработка ответа сервера
+        } catch (error) {
+            console.error(error);
+        }   
+    };
+
+    const btnChangeBlobikngStatusClick = async (userId, status) =>{
+        setStatusBlock(userId, status);
+    }
+
+    const btnChangeDeletingStatusClick = async (userId, status) =>{
+        setStatusDel(userId, status);
+    }
 
     return (
-        <div>
+        <div className="containerAdmin">
             <div className='menuAdmin'>
-                
+                <div className='searchPanel'>
+                    <input className='inputField1' type="text" placeholder="Введите логин пользователя" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+                </div>
             </div>
             <div className="userList">
                 {data ? (
@@ -117,23 +178,31 @@ function AdminMenu({ id }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {sortedData.map((coin) => (
-                                <React.Fragment key={coin.id}>
-                                    <tr onClick={() => handleModalOpen(coin)}>
-                                        <td>{coin.id}</td>
-                                        <td>{coin.login}</td>
-                                        <td>{coin.email}</td>
-                                        <td>{formatDate(coin.creationData)}</td>
-                                        <td>{formatDate(coin.modificationDate)}</td>
-                                        <td>{coin.isBlocked ? 'true' : 'false'}</td>
-                                        <td>{coin.isDeleted ? 'true' : 'false'}</td>
+                            {filteredUsers.map((user) => (
+                                <React.Fragment key={user.id}>
+                                    <tr onClick={() => handleModalOpen(user)}>
+                                        <td>{user.id}</td>
+                                        <td>{user.login}</td>
+                                        <td>{user.email}</td>
+                                        <td>{formatDate(user.creationData)}</td>
+                                        <td>{formatDate(user.modificationDate)}</td>
                                         <td>
-                                            <button onClick={() => handleButtonClick('loginHistory', coin.id)}>
+                                            <button className={user.isBlocked ? 'blocked' : 'not-blocked'} onClick={() => btnChangeBlobikngStatusClick(user.id, user.status)}>
+                                                {user.isBlocked ? 'Заблокирован' : 'Активен'}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={user.isDeleted ? 'blocked' : 'not-blocked'} onClick={() => btnChangeDeletingStatusClick(user.id, user.status)}>
+                                                {user.isDeleted ? 'Удален' : 'Активен'}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button onClick={() => handleButtonClick('loginHistory', user.id)}>
                                                 Информация
                                             </button>
                                         </td>
                                     </tr>
-                                    {selectedUserId === coin.id && (
+                                    {selectedUserId === user.id && (
                                         <tr>
                                             <td colSpan="8">{renderComponent()}</td>
                                         </tr>
