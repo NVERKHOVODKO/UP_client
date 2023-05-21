@@ -16,18 +16,6 @@ function SellCrypto(props) {
 
     const [quantityMaxCoin, setCoinMaxQuantity] = useState();
 
-    const getCoinQuantityInUserWallet = (coin) => {
-        console.log("userId: " + id + "\ncoinName: " + coin);
-        axios
-            .get("https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" + id + "&coinName=" + coin)
-            .then((response) => {
-                setCoinMaxQuantity(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
     const coins = [
         { value: "BTC", label: "Bitcoin - BTC" },
         { value: "ETH", label: "Ethereum - ETH" },
@@ -75,18 +63,34 @@ function SellCrypto(props) {
     function handleSell(event) {
         setText('Загрузка...');
         event.preventDefault();
-        axios.post('https://localhost:7157/Transaction/sellCrypto', { userId, coinName, quantityForSell })
+        if (!quantityForSell) {
+            setText('Количество для продажи не указано');
+            return;
+        }
+        console.log("userId: " + userId + "\ncoinName: " + coinName + "\nquantityForSell: " + quantityForSell);
+        axios.put('https://localhost:7157/Transaction/sellCrypto', { userId, coinName, quantityForSell })
             .then(response => {
                 console.log("Coinname: " + coinName);
                 setText(response.data);
-                getCoinQuantityInUserWallet();
             })
             .catch(error => {
                 setText(error.response.data);
                 console.log(error);
             });
-        getCoinQuantityInUserWallet();
+        getCoinQuantityInUserWallet(coinName);
     }
+
+    const getCoinQuantityInUserWallet = (coin) => {
+        console.log("userId: " + id + "\ncoinName: " + coin);
+        axios
+            .get("https://localhost:7157/Currency/getCoinQuantityInUserWallet?userId=" + id + "&coinName=" + coin)
+            .then((response) => {
+                setCoinMaxQuantity(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     const handleQuantityChange = (event) => {
         /* if (event.target.value == 0) {
@@ -166,6 +170,7 @@ function SellCrypto(props) {
         const selectedCoin = coins.find((coin) => coin.value === event.target.value);
         if (selectedCoin) {
             setCoinName(event.target.value.toLowerCase());
+            console.log("Coinname: " + event.target.value.toLowerCase());
             setIconFinal(coinIcoins['./' + event.target.value.toLowerCase() + '.png'])
             getCoinQuantityInUserWallet(event.target.value.toLowerCase());
             handleConvert(event.target.value.toLowerCase());
@@ -202,12 +207,26 @@ function SellCrypto(props) {
             });
     };
 
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/User/getUserLoginById?id=" + id)
+            .then(response => {
+                console.log("Username:" + data);
+                setUserName(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+
     return (
         <div className="container">
             <div className="navBar">
                 <img className="upIcon" src={mainIcon} alt="UP icon"></img>
                 <div className="loginLbl">
-                    <h2>{login}</h2>
+                    <h2>{userName}</h2>
                 </div>
                 <div className="balanceLbl">
                     {balanceData ? (

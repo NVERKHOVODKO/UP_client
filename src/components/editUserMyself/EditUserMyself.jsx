@@ -9,21 +9,6 @@ function EditUserMyself({ id }) {
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMsg] = useState('_________________________________________________________________________________________________________________________________________________________________');
 
-
-    /* function handleEdit(event) {
-        console.log("id: " + id + "\nlogin: " + login + "\npassword: " + password + "\npasswordRepeat: " + passwordRepeat + "\nemail: " + email);
-        event.preventDefault();
-        axios.put('https://localhost:7157/User/editUser', { id, login, password, passwordRepeat, email })
-            .then(response => {
-                setErrorMsg(response.data);
-                console.log(response.data);
-            })
-            .catch(error => {
-                setErrorMsg(error.response.data);
-                console.error(error);
-            });
-    } */
-
     function handleEditLogin(event) {
         console.log("id: " + id + "\nlogin: " + login);
         event.preventDefault();

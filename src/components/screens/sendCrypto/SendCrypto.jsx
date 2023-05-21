@@ -76,6 +76,10 @@ function BuyCryptoForm(props) {
     }
 
     function handleConvert(event) {
+        if (!receiverId || !senderId || !coinName || !quantityForSend) {
+            setText("Введите данные");
+            return;
+        }
         setText('Загрузка...');
         event.preventDefault();
         axios.post('https://localhost:7157/Transaction/sendCrypto', { receiverId, senderId, coinName, quantityForSend })
@@ -139,12 +143,25 @@ function BuyCryptoForm(props) {
             });
     };
 
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/User/getUserLoginById?id=" + id)
+            .then(response => {
+                console.log("Username:" + data);
+                setUserName(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
     return (
         <div className="container">
             <div className="navBar">
                 <img className="upIcon" src={mainIcon} alt="UP icon"></img>
                 <div className="loginLbl">
-                    <h2>{login}</h2>
+                    <h2>{userName}</h2>
                 </div>
                 <div className="balanceLbl">
                     {balanceData ? (

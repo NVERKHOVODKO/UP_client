@@ -22,7 +22,7 @@
     overflow-y: scroll;
 }
 
-.blocked {
+.deleted {
     background-color: red;
     color: white;
     width: 100px;
@@ -32,7 +32,7 @@
     border-radius: 5px;
 }
 
-.not-blocked {
+.not-deleted {
     background-color: green;
     color: white;
     width: 100px;
@@ -40,4 +40,58 @@
     text-align: center;
     border: none;
     border-radius: 5px;
+}
+
+.blockingBtn {
+    background-color: rgb(119, 119, 119);
+    color: rgb(0, 0, 0);
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+
+.searchPanelAdmin {
+    background-color: #1c1e27;
+    width: 1510px;
+    height: 180px;
+    padding: 10px;
+}
+
+.tableHead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f9f9f9;
+}
+
+.btnBack {
+    height: 60px;
+    width: 60px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: none;
+    border-radius: 11px;
+    color: rgb(72, 153, 193);
+    background-color: #141517;
+
+}
+
+.btnInfo {
+    background-color: rgb(0, 55, 142);
+    color: white;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+
+.narrowColumn {
+    width: 5%;
+}
+
+.btnColumn {
+    width: 10%;
 }

@@ -10,10 +10,21 @@ import WithdrawMoney from '../../../components/withdrawMoney/WithdrawMoney';
 import EditUserMyself from '../../../components/editUserMyself/EditUserMyself';
 
 
-function BuyCryptoForm(props) {
+function AccontMenu(props) {
     const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
-
     const [isMasked, setIsMasked] = useState(false);
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/User/getUserLoginById?id=" + id)
+            .then(response => {
+                console.log("Username:" + data);
+                setUserName(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
     const handleMaskBalance = () => {
         setIsMasked(!isMasked);
@@ -34,6 +45,7 @@ function BuyCryptoForm(props) {
                 console.log(error);
             });
     }, []);
+
 
     const [textToCopy, setTextToCopy] = useState(id);
 
@@ -88,15 +100,15 @@ function BuyCryptoForm(props) {
     const renderComponent = () => {
         switch (selectedComponent) {
             case 'loginHistory':
-                return <LoginHistoryTable id={1} />;
+                return <LoginHistoryTable id={id} />;
             case 'replenishBalance':
-                return <ReplenishTheBalance id={1} />;
+                return <ReplenishTheBalance id={id} />;
             case 'withdrawMoney':
-                return <WithdrawMoney id={1} />;
+                return <WithdrawMoney id={id} />;
             case 'editUserMyself':
-                return <EditUserMyself id={1} />;
+                return <EditUserMyself id={id} />;
             default:
-                return <EditUserMyself id={23} />;
+                return <EditUserMyself id={id} />;
         }
     }
 
@@ -105,7 +117,7 @@ function BuyCryptoForm(props) {
             <div className="navBar">
                 <img className="upIcon" src={mainIcon} alt="UP icon"></img>
                 <div className="loginLbl">
-                    <h2>{login}</h2>
+                    <h2>{userName}</h2>
                 </div>
                 <div className="balanceLbl">
                     {balanceData ? (
@@ -182,4 +194,4 @@ function BuyCryptoForm(props) {
     );
 }
 
-export default BuyCryptoForm;
+export default AccontMenu;

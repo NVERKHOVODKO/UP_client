@@ -1,24 +1,30 @@
 import './AdminMenu.css';
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
-import LoginHistoryTable from '../../../components/loginHistoryTable/LoginHistoryTable';
+import BlockingMenu from '../../../components/blokingMenu/blocking';
+import { useHistory } from 'react-router-dom';
+import TransactionsHistory from '../../../components/transactionsHistory/TransactionsHistory';
 
 
 function AdminMenu({ id }) {
     const [data, setData] = useState([]);
     const [sortColumn, setSortColumn] = useState(null);
     const [sortDirection, setSortDirection] = useState(1);
+    const history = useHistory();
+
+
 
     useEffect(() => {
         axios.get("https://localhost:7157/Admin/getUserList")
             .then(response => {
-                setData(response.data);
+                const sortedData = response.data.sort((a, b) => a.id - b.id);
+                setData(sortedData);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
-    
+
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -103,10 +109,10 @@ function AdminMenu({ id }) {
 
     const renderComponent = () => {
         if (selectedComponent === 'loginHistory' && selectedUserId) {
-            return <LoginHistoryTable id={selectedUserId} />;
+            return <TransactionsHistory id={selectedUserId} />;
         }
-        if (selectedComponent === 'loginHistory' && selectedUserId) {
-            return <LoginHistoryTable id={selectedUserId} />;
+        if (selectedComponent === 'blocking' && selectedUserId) {
+            return <BlockingMenu id={selectedUserId} />;
         }
         return null;
     };
@@ -122,43 +128,75 @@ function AdminMenu({ id }) {
                 id: userId,
                 status: !status
             };
-
             const response = await axios.put(url, null, { params });
-
             console.log(response.data); // Обработка ответа сервера
+            axios.get("https://localhost:7157/Admin/getUserList")
+                .then(response => {
+                    const sortedData = response.data.sort((a, b) => a.id - b.id);
+                    setData(sortedData);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         } catch (error) {
             console.error(error);
         }
     };
 
-    const setStatusDel = async (userId, status) => {
+    const setStatusDel = async (userId, statusDel) => {
+        console.log("Status: " + statusDel + " Id: " + userId);
         try {
             const url = 'https://localhost:7157/Admin/setStatusDel';
             const params = {
                 id: userId,
-                status: !status
+                status: !statusDel
             };
-
             const response = await axios.put(url, null, { params });
-
             console.log(response.data); // Обработка ответа сервера
+            axios.get("https://localhost:7157/Admin/getUserList")
+                .then(response => {
+                    const sortedData = response.data.sort((a, b) => a.id - b.id);
+                    setData(sortedData);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         } catch (error) {
             console.error(error);
-        }   
+        }
     };
 
-    const btnChangeBlobikngStatusClick = async (userId, status) =>{
-        setStatusBlock(userId, status);
+    const btnChangeBlobikngStatusClick = async (userId, status, buttonName) => {
+        //setStatusBlock(userId, status);
+
+        setSelectedUserId(userId);
+
+        if (selectedComponent === buttonName) {
+            // Если текущий компонент совпадает с нажатой кнопкой, скрываем компонент
+            setSelectedComponent(null);
+            setSelectedUserId(null);
+        } else {
+            // Иначе выбираем новый компонент
+            setSelectedComponent(buttonName);
+            setSelectedUserId(userId);
+        }
     }
 
-    const btnChangeDeletingStatusClick = async (userId, status) =>{
+    const btnChangeDeletingStatusClick = async (userId, status) => {
         setStatusDel(userId, status);
+    }
+
+    const btnBackClick = async () => {
+        history.push('/');
     }
 
     return (
         <div className="containerAdmin">
             <div className='menuAdmin'>
-                <div className='searchPanel'>
+                <div className='searchPanelAdmin'>
+                    <button className='btnBack' onClick={btnBackClick}>
+                        Выйти
+                    </button>
                     <input className='inputField1' type="text" placeholder="Введите логин пользователя" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
                 </div>
             </div>
@@ -167,14 +205,14 @@ function AdminMenu({ id }) {
                     <table className="usersTable">
                         <thead>
                             <tr className='tableHead'>
-                                <th onClick={() => sortTable('id')}>ID</th>
+                                <th className="btnColumn" onClick={() => sortTable('id')}>ID</th>
                                 <th onClick={() => sortTable('login')}>Логин</th>
                                 <th>Email</th>
                                 <th onClick={() => sortTable('creationData')}>Дата создания</th>
                                 <th onClick={() => sortTable('modificationDate')}>Дата модификации</th>
-                                <th onClick={() => sortTable('isBlocked')}>Блок.</th>
-                                <th onClick={() => sortTable('isDeleted')}>Удал.</th>
-                                <th>Информация</th>
+                                <th className="btnColumn" onClick={() => sortTable('isBlocked')}>Блок.</th>
+                                <th className="btnColumn" onClick={() => sortTable('isDeleted')}>Удал.</th>
+                                <th className="btnColumn">Информация</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -187,17 +225,17 @@ function AdminMenu({ id }) {
                                         <td>{formatDate(user.creationData)}</td>
                                         <td>{formatDate(user.modificationDate)}</td>
                                         <td>
-                                            <button className={user.isBlocked ? 'blocked' : 'not-blocked'} onClick={() => btnChangeBlobikngStatusClick(user.id, user.status)}>
+                                            <button className='blockingBtn' onClick={() => btnChangeBlobikngStatusClick(user.id, user.isBlocked, 'blocking')}>
                                                 {user.isBlocked ? 'Заблокирован' : 'Активен'}
                                             </button>
                                         </td>
                                         <td>
-                                            <button className={user.isDeleted ? 'blocked' : 'not-blocked'} onClick={() => btnChangeDeletingStatusClick(user.id, user.status)}>
+                                            <button className={user.isDeleted ? 'deleted' : 'not-deleted'} onClick={() => btnChangeDeletingStatusClick(user.id, user.isDeleted)}>
                                                 {user.isDeleted ? 'Удален' : 'Активен'}
                                             </button>
                                         </td>
                                         <td>
-                                            <button onClick={() => handleButtonClick('loginHistory', user.id)}>
+                                            <button className='btnInfo' onClick={() => handleButtonClick('loginHistory', user.id)}>
                                                 Информация
                                             </button>
                                         </td>

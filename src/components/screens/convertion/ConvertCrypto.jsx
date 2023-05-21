@@ -87,6 +87,22 @@ function BuyCryptoForm(props) {
     function handleConvert(event) {
         setText('Загрузка...');
         event.preventDefault();
+        if (!quantity) {
+            setText('Количество для продажи не указано');
+            return;
+        }
+        if (!shortNameStart) {
+            setText('shortNameStart не указано');
+            return;
+        }
+        if (!shortNameFinal) {
+            setText('shortNameFinal не указано');
+            return;
+        }
+        if (!userId) {
+            setText('userId не указано');
+            return;
+        }
         axios.post('https://localhost:7157/Transaction/convert', { shortNameStart, shortNameFinal, quantity, userId })
             .then(response => {
                 setText(response.data);
@@ -168,6 +184,18 @@ function BuyCryptoForm(props) {
             });
     };
 
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/User/getUserLoginById?id=" + id)
+            .then(response => {
+                console.log("Username:" + data);
+                setUserName(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
     return (
         <div className="container">
@@ -175,7 +203,7 @@ function BuyCryptoForm(props) {
                 <div className="navBar">
                     <img className="upIcon" src={mainIcon} alt="UP icon"></img>
                     <div className="loginLbl">
-                        <h2>{login}</h2>
+                        <h2>{userName}</h2>
                     </div>
                     <div className="balanceLbl">
                         {balanceData ? (

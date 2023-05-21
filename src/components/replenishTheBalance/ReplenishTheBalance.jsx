@@ -10,6 +10,10 @@ function ReplenishTheBalance({ id }) {
 
     function handleReplanish(event) {
         if(quantityUsd != null){
+            if(commission == 0){
+                setErrorMsg("Некорректные данные");
+                return;
+            }
             console.log("quantityUsd: " + quantityUsd + "\nuserId: " + userId);
             event.preventDefault();
             axios.post('https://localhost:7157/Transaction/replenishTheBalance', { userId, quantityUsd })

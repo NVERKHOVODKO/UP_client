@@ -1,0 +1,38 @@
+.blokingContainer {
+    height: 100px;
+    background-color: rgb(17, 17, 26);
+}
+
+.inputFieldBlokingReason {
+    margin: 10px;
+    background-color: #212739;
+    border: 2px solid rgb(72, 153, 193);
+    border-radius: 10px;
+    font-size: 16px;
+    height: 30px;
+    width: 450px;
+}
+
+.btnBlock {
+    margin-left: 10px;
+    width: 70px;
+    height: 35px;
+    background-color: red;
+    border: none;
+    border-radius: 7px;
+    color: aliceblue;
+}
+
+.btnUnBlock {
+    width: 70px;
+    height: 35px;
+    background-color: green;
+    border: none;
+    border-radius: 7px;
+    color: aliceblue;
+    margin-left: 20px;
+}
+
+.blokingReasonLbl {
+    margin-left: 10px;
+}

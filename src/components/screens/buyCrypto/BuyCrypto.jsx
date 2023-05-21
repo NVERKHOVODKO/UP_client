@@ -11,6 +11,19 @@ function BuyCryptoForm(props) {
     const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
     const [errorMessage, setText] = useState('________________________________________________________________');
 
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        axios.get("https://localhost:7157/User/getUserLoginById?id=" + id)
+            .then(response => {
+                console.log("Username:" + data);
+                setUserName(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchCoinQuantity1();
@@ -206,7 +219,7 @@ function BuyCryptoForm(props) {
             <div className="navBar">
                 <img className="upIcon" src={mainIcon} alt="UP icon"></img>
                 <div className="loginLbl">
-                    <h2>{login}</h2>
+                    <h2>{userName}</h2>
                 </div>
                 <div className="balanceLbl">
                     {balanceData ? (
