@@ -122,3 +122,9 @@ select:focus {
     background-color: #212739;
     color: rgb(72, 153, 193);
 }
+
+
+.errorTextConvert{
+    color: red;
+    margin-top: -10px;
+}

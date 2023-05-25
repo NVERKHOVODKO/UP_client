@@ -8,6 +8,7 @@ import logo from '../userMainMenu/UserMainMenu.Module.jsx'
 import { Link } from 'react-router-dom';
 import NavBar from '../../navBar/NavBar.jsx';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import loadingGif from '../../../assets/images/loading.gif'
 
 
 function App(props) {
@@ -21,8 +22,6 @@ function App(props) {
   const menuIcoins = {};
   const [isMasked, setIsMasked] = useState(false);
   const maskedBalance = "*********";
-
-
 
   useEffect(() => {
     axios.get("https://localhost:7157/Currency/getCurrenciesList")
@@ -133,7 +132,7 @@ function App(props) {
               </button>
             </div>
           ) : (
-            <p>Loading...</p>
+            <p>0$</p>
           )}
         </div>
         <div className="MenuCaseItem">
@@ -202,7 +201,9 @@ function App(props) {
               </tbody>
             </table>
           ) : (
-            <p>Loading...</p>
+            <div className='loagingPanel'>
+              <img className="loadingGif" src={loadingGif} alt="loaging" />
+            </div>
           )}
         </div>
       </div>

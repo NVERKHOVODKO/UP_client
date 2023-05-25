@@ -30,7 +30,10 @@ function App(props) {
   useEffect(() => {
     axios.get("https://localhost:7157/Currency/getUserBalance?userId=" + id)
       .then(response => {
-        console.log(data);
+        console.log("User balance: " + data);
+        if(response.data == null){
+          setBalanceData(0);
+        }
         setBalanceData(response.data);
       })
       .catch(error => {
@@ -83,7 +86,7 @@ function App(props) {
               </button>
             </div>
           ) : (
-            <p>Loading...</p>
+            <p>0$</p>
           )}
         </div>
         <div className="MenuCaseItem">

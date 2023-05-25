@@ -128,7 +128,7 @@ function AccontMenu(props) {
                             </button>
                         </div>
                     ) : (
-                        <p>Loading...</p>
+                        <p>0$</p>
                     )}
                 </div>
                 <div className="MenuCaseItem">

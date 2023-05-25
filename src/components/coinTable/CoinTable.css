@@ -1,0 +1,11 @@
+.loagingPanel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingGif {
+    width: 100px;
+    height: 100px;
+    margin-top: 360px;
+}

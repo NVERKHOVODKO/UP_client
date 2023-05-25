@@ -1,5 +1,7 @@
 import axios from 'axios';
+import styles from './CoinTable.css';
 import React, { useState, useEffect } from "react";
+import loadingGif from '../../assets/images/loading.gif'
 
 function LoginHistoryTable({ id }) {
     const [data, setData] = useState(null);
@@ -82,7 +84,9 @@ function LoginHistoryTable({ id }) {
                     </tbody>
                 </table>
             ) : (
-                <p>Loading...</p>
+                <div className='loagingPanel'>
+                    <img className="loadingGif" src={loadingGif} alt="loaging" />
+                </div>
             )}
         </div>
     );

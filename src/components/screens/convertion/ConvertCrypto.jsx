@@ -9,6 +9,8 @@ function BuyCryptoForm(props) {
     const { id, login, password, email, creationData, isBlocked, isDeleted, modificationDate, roleId, salt } = props.location.state;
     const [errorMessage, setText] = useState('________________________________________________________________');
     const [quantityCoinConvert, setQuantityCoinConvertText] = useState('');
+    const[rateQuantity, setRateQuantity] = useState('?');
+
     const handleSubmit = (event) => {
         event.preventDefault();
     };
@@ -148,6 +150,16 @@ function BuyCryptoForm(props) {
                 setQuantityCoinConvertText('?');
                 console.log(error);
             });
+            setRateQuantity('Загрузка...');
+            axios.get("https://localhost:7157/Currency/getQuantityAfterConversion?shortNameStart=" + shortNameStart + "&shortNameFinal=" + secondCoin + "&quantity=" + 1 + "&userId=" + id)
+            .then(response => {
+                console.log(data);
+                setRateQuantity(response.data);
+            })
+            .catch(error => {
+                setRateQuantity('?');
+                console.log(error);
+            });
     }
 
     function GetConvertQuantityWithFirstCoin(firstCoin) {
@@ -214,7 +226,7 @@ function BuyCryptoForm(props) {
                                 </button>
                             </div>
                         ) : (
-                            <p>Loading...</p>
+                            <p>0$</p>
                         )}
                     </div>
                     <div className="MenuCaseItem">
@@ -295,8 +307,10 @@ function BuyCryptoForm(props) {
                                 <br />
                                 Вы получите ~ {quantityCoinConvert} {shortNameFinal.toLocaleUpperCase()}
                             </div>
-                            <h3 className="errorText">{errorMessage}</h3>
-                            <br />
+                            <div className='ratePanel'>
+                                Конвертация производится по курсу 1 {shortNameStart.toLocaleUpperCase()} ~ {rateQuantity} {shortNameFinal.toLocaleUpperCase()}
+                            </div>
+                            <h3 className="errorTextConvert">{errorMessage}</h3>
                             <button className='buttonBuy' type="submit" onClick={handleConvert}>Конвертировать</button>
                         </form>
                     </div>
